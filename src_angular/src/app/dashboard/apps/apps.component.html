@@ -1,0 +1,52 @@
+<mat-card class="table-parent-container">
+    <div fxLayout="row" fxLayoutAlign="space-between center ">
+        <mat-form-field appearance="standard" style="width: 44%; padding: 0 1.2em;">
+            <mat-label>Filter</mat-label>
+            <input type="text" matInput [(ngModel)]="filter">
+            <button *ngIf="filter" matSuffix mat-icon-button aria-label="Clear" (click)="filter=''">
+          <mat-icon>close</mat-icon>
+        </button>
+        </mat-form-field>
+        <mat-paginator #paginator [pageIndex]="pageIndex" [pageSize]="pageSize" [pageSizeOptions]="pageSizeOptions" aria-label="Select page">
+        </mat-paginator>
+    </div>
+    <div class="table-container">
+        <table mat-table [dataSource]="appsDataSource" matSort (matSortChange)="announceSortChange($event)">
+
+            <!--- Note that these columns can be defined in any order.
+          The actual rendered columns are set as a property on the row definition" -->
+
+            <!-- APP Column -->
+            <ng-container matColumnDef="app">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header mat-sort-header style="width: 30%;"> APP </th>
+                <td mat-cell *matCellDef="let element"> {{element.app}} </td>
+            </ng-container>
+
+            <!-- #CLIENTS Column -->
+            <ng-container matColumnDef="num_clients">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header mat-sort-header style="width: 10%;"> #CLIENTS </th>
+                <td mat-cell *matCellDef="let element"> {{element.num_clients}} </td>
+            </ng-container>
+            <!-- RX BYES Column -->
+            <ng-container matColumnDef="rx_bytes">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header style="text-align: center;" style="width: 20%; text-align: center;"> RX BYTES </th>
+                <td mat-cell *matCellDef="let element"> {{element.rx_bytes | bytessize}} </td>
+            </ng-container>
+            <!-- TX BYES Column -->
+            <ng-container matColumnDef="tx_bytes">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header style="text-align: center;" style="width: 20%; text-align: center;"> TX BYTES </th>
+                <td mat-cell *matCellDef="let element"> {{element.tx_bytes | bytessize}} </td>
+            </ng-container>
+            <!-- TOTAL BYES Column -->
+            <ng-container matColumnDef="total_bytes">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header style="text-align: center;" style="width: 20%; text-align: center;"> TOTAL BYTES </th>
+                <td mat-cell *matCellDef="let element"> {{element.total_bytes | bytessize}} </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+
+        </table>
+    </div>
+</mat-card>

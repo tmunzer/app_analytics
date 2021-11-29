@@ -1,0 +1,66 @@
+<button mat-raised-button color="primary" style="position: absolute;top: 1em;right: 1em;margin: 0;" (click)="back()">Back to Sites</button>
+
+<div fxLayout="row" style="height: 100%;">
+    <div fxLayout="column" style="width: 100%;">
+        <div fxLayout="row" fxLayoutAlign="space-between center">
+            <div fxLayout="row" fxLayoutAlign="center center">
+                <div fxLayout="column">
+                    <mat-form-field style="margin: 0 1em;">
+                        <input matInput [ngxMatDatetimePicker]="start_picker" [min]="min_start_date" [max]="max_start_date" placeholder="Start date" [formControl]="startDateControl">
+                        <mat-datepicker-toggle matSuffix [for]="start_picker"></mat-datepicker-toggle>
+                        <ngx-mat-datetime-picker #start_picker color="accent" stepMinute="10">
+                        </ngx-mat-datetime-picker>
+                    </mat-form-field>
+                    <mat-form-field style="margin: 0 1em;">
+                        <input matInput [ngxMatDatetimePicker]="end_picker" [min]="min_end_date" [max]="max_end_date" placeholder="End date" [formControl]="endDateControl">
+                        <mat-datepicker-toggle matSuffix [for]="end_picker"></mat-datepicker-toggle>
+                        <ngx-mat-datetime-picker #end_picker color="accent" stepMinute="10">
+                        </ngx-mat-datetime-picker>
+                    </mat-form-field>
+                </div>
+                <button mat-raised-button color="accent" (click)="refresh()">Refresh</button>
+            </div>
+
+            <div fxLayout="row">
+                <mat-card class="info" style="border-color: rgba(0,149,163,1);">
+                    <mat-card-title fxLayout="row" fxLayoutAlign="space-between center" style="color: rgba(0,149,163,1);">Total Rx</mat-card-title>
+                    <mat-card-content>{{total_rx_string}}</mat-card-content>
+                </mat-card>
+                <mat-card class="info" style="border-color: rgba(132,176,53,1);">
+                    <mat-card-title fxLayout="row" fxLayoutAlign="space-between center" style="color: rgba(132,176,53,1);">Total Tx</mat-card-title>
+                    <mat-card-content>{{total_tx_string}}</mat-card-content>
+                </mat-card>
+            </div>
+            <div fxLayout="row">
+                <mat-card class="info clickable" (click)="table_to_display='clients'" [ngClass]="{'selected': table_to_display=='clients'}">
+                    <mat-card-title fxLayout="row" fxLayoutAlign="space-between center">
+                        <div># of Clients</div>
+                        <mat-icon class="material-icons" style="font-size: 20px;">loupe</mat-icon>
+                    </mat-card-title>
+                    <mat-card-content>
+                        <span *ngIf="clients">{{clients.length}}</span>
+                        <span *ngIf="!clients"></span>
+                    </mat-card-content>
+                </mat-card>
+                <mat-card class="info clickable" (click)="table_to_display='apps'" [ngClass]="{'selected': table_to_display=='apps'}">
+                    <mat-card-title fxLayout="row" fxLayoutAlign="space-between center">
+                        <div># of Apps</div>
+                        <mat-icon class="material-icons" style="font-size: 20px;">loupe</mat-icon>
+                    </mat-card-title>
+                    <mat-card-content>
+                        <span *ngIf="apps">{{apps.length}}</span>
+                        <span *ngIf="!apps"></span>
+                    </mat-card-content>
+                </mat-card>
+            </div>
+        </div>
+        <div fxLayout="row">
+            <mat-card class="dashboard-content chart" style="height: 12em; width: 100%; position: relative; display: block;">
+                <canvas baseChart style="height: 100%;" [datasets]="lineChartData" [labels]="lineChartLabels" [options]="lineChartOptions" [legend]="lineChartLegend" chartType="line">
+                </canvas>
+            </mat-card>
+        </div>
+        <app-dashboard-clients *ngIf="table_to_display=='clients'"></app-dashboard-clients>
+        <app-dashboard-apps *ngIf="table_to_display=='apps'"></app-dashboard-apps>
+    </div>
+</div>

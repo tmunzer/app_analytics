@@ -1,0 +1,5 @@
+/.angular/cache
+# NativeScriptnode_modules/
+platforms/
+hooks/
+src/**/*.js
