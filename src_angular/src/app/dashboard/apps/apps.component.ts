@@ -1,10 +1,14 @@
+import { AfterViewInit, Component, ViewChild, Input } from '@angular/core';
 import { LiveAnnouncer } from '@angular/cdk/a11y';
-import { AfterViewInit, Component, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatSort, Sort } from '@angular/material/sort';
 
 import { AppsService, AppElement } from '../../services/apps.service';
+import { MatDialog } from '@angular/material/dialog';
+import { AppDetailsComponent } from '../appDetails/appDetails.component';
+import { ClientElement } from '@src/app/services/clients.service';
+import { ClientDetailsComponent } from '../clientDetails/clientDetails.component';
 
 @Component({
   selector: 'app-dashboard-apps',
@@ -14,9 +18,6 @@ import { AppsService, AppElement } from '../../services/apps.service';
 
 
 export class AppsComponent implements AfterViewInit {
-
-
-  multiplicator = ["B", "KB", "MB", "GB", "TB", "PB", "EB"]
 
   /////////////////////////
   // table
@@ -28,13 +29,16 @@ export class AppsComponent implements AfterViewInit {
   pageLength: number = 0
   pageSizeOptions: number[] = [5, 25, 50]
 
+  display: boolean = false;
 
   filter: string = "";
 
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator) paginator: MatPaginator;
+  @Input() start: number;
+  @Input() end: number;
 
-  constructor(private _appsService: AppsService, private _liveAnnouncer: LiveAnnouncer) { }
+  constructor(private _appsService: AppsService, private _liveAnnouncer: LiveAnnouncer, private _dialog: MatDialog) { }
   //////////////////////////////////////////////////////////////////////////////
   /////           INIT
   //////////////////////////////////////////////////////////////////////////////
@@ -43,25 +47,54 @@ export class AppsComponent implements AfterViewInit {
       this.appsDataSource = new MatTableDataSource(apps);
       this.appsDataSource.sort = this.sort;
     })
+    this._appsService.display.subscribe(display => {
+      this.display = display;
+    })
+  }
+
+  //////////////////////////////////////////////////////////////////////////////
+  /////           TABLE
+  //////////////////////////////////////////////////////////////////////////////
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.appsDataSource.filter = filterValue.trim().toLowerCase();
+
+    if (this.appsDataSource.paginator) {
+      this.appsDataSource.paginator.firstPage();
+    }
   }
 
   //////////////////////////////////////////////////////////////////////////////
   /////           COMMON
   //////////////////////////////////////////////////////////////////////////////
-
-
-  sortList(data, attribute) {
-    return data.sort(function (a, b) {
-      var nameA = a[attribute].toUpperCase(); // ignore upper and lowercase
-      var nameB = b[attribute].toUpperCase(); // ignore upper and lowercase
-      if (nameA < nameB) {
-        return -1;
+  // DETAILS
+  openAppDetails(app: AppElement) {
+    const dialogRef = this._dialog.open(AppDetailsComponent, {
+      data: {
+        app: app,
+        start: this.start,
+        end: this.end
+      },
+    });
+    dialogRef.afterClosed().subscribe(client => {
+      if (client) {
+        this.openClientDetails(client);
       }
-      if (nameA > nameB) {
-        return 1;
+    });
+  }
+  openClientDetails(client: ClientElement) {
+    const dialogRef = this._dialog.open(ClientDetailsComponent, {
+      data: {
+        client: client,
+        start: this.start,
+        end: this.end
+      },
+    });
+    dialogRef.afterClosed().subscribe(client => {
+      if (client) {
+        this.openAppDetails(client);
       }
-      return 0;
-    })
+    });
   }
 
   /** Announce the change in sort state for assistive technology. */

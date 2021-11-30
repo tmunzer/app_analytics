@@ -53,6 +53,8 @@ import { TwoFactorDialog } from '@src/app/login/login-2FA';
 import { DashboardComponent } from '@src/app/dashboard/dashboard.component';
 import { ClientsComponent } from '@src/app/dashboard/clients/clients.component';
 import { AppsComponent } from '@src/app/dashboard/apps/apps.component';
+import { ClientDetailsComponent } from '@src/app/dashboard/clientDetails/clientDetails.component';
+import { AppDetailsComponent } from '@src/app/dashboard/appDetails/appDetails.component';
 import { ErrorDialog } from '@src/app/common/common-error';
 import { WarningDialog } from '@src/app/common/common-warning';
 import { OrgComponent } from '@src/app/org/org.component';
@@ -66,7 +68,8 @@ import { AgmCoreModule } from '@agm/core';
   declarations: [
     AppComponent,
     LoginComponent, TwoFactorDialog,
-    DashboardComponent, ClientsComponent, AppsComponent, ErrorDialog, WarningDialog, BytesPipe, WlanPipe,
+    DashboardComponent, ClientsComponent, AppsComponent, ClientDetailsComponent, AppDetailsComponent,
+    ErrorDialog, WarningDialog, BytesPipe, WlanPipe,
     OrgComponent,
     StartsWithPipe,
     MapToArrayPipe

@@ -24,11 +24,21 @@
             <div fxLayout="row">
                 <mat-card class="info" style="border-color: rgba(0,149,163,1);">
                     <mat-card-title fxLayout="row" fxLayoutAlign="space-between center" style="color: rgba(0,149,163,1);">Total Rx</mat-card-title>
-                    <mat-card-content>{{total_rx_string}}</mat-card-content>
+                    <mat-card-content>{{total_rx | bytessize}}
+                        <div class="loading" *ngIf="statsLoading">
+                            <mat-spinner diameter=45></mat-spinner>
+                        </div>
+                    </mat-card-content>
                 </mat-card>
-                <mat-card class="info" style="border-color: rgba(132,176,53,1);">
-                    <mat-card-title fxLayout="row" fxLayoutAlign="space-between center" style="color: rgba(132,176,53,1);">Total Tx</mat-card-title>
-                    <mat-card-content>{{total_tx_string}}</mat-card-content>
+                <mat-card class="info " style="border-color: rgba(132,176,53,1); ">
+                    <mat-card-title fxLayout="row " fxLayoutAlign="space-between center " style="color: rgba(132,176,53,1); ">Total Tx</mat-card-title>
+                    <mat-card-content>
+                        {{total_tx | bytessize}}
+                        <div class="loading" *ngIf="statsLoading">
+                            <mat-spinner diameter=45></mat-spinner>
+                        </div>
+                    </mat-card-content>
+
                 </mat-card>
             </div>
             <div fxLayout="row">
@@ -40,6 +50,9 @@
                     <mat-card-content>
                         <span *ngIf="clients">{{clients.length}}</span>
                         <span *ngIf="!clients"></span>
+                        <div class="loading" *ngIf="statsLoading">
+                            <mat-spinner diameter=45></mat-spinner>
+                        </div>
                     </mat-card-content>
                 </mat-card>
                 <mat-card class="info clickable" (click)="table_to_display='apps'" [ngClass]="{'selected': table_to_display=='apps'}">
@@ -50,6 +63,9 @@
                     <mat-card-content>
                         <span *ngIf="apps">{{apps.length}}</span>
                         <span *ngIf="!apps"></span>
+                        <div class="loading" *ngIf="appsLoading">
+                            <mat-spinner diameter=45></mat-spinner>
+                        </div>
                     </mat-card-content>
                 </mat-card>
             </div>
@@ -58,9 +74,12 @@
             <mat-card class="dashboard-content chart" style="height: 12em; width: 100%; position: relative; display: block;">
                 <canvas baseChart style="height: 100%;" [datasets]="lineChartData" [labels]="lineChartLabels" [options]="lineChartOptions" [legend]="lineChartLegend" chartType="line">
                 </canvas>
+                <div class="loading" *ngIf="appsLoading">
+                    <mat-spinner diameter=45></mat-spinner>
+                </div>
             </mat-card>
         </div>
-        <app-dashboard-clients *ngIf="table_to_display=='clients'"></app-dashboard-clients>
-        <app-dashboard-apps *ngIf="table_to_display=='apps'"></app-dashboard-apps>
+        <app-dashboard-clients *ngIf="table_to_display=='clients'" [start]="startDateControl.value.unix()" [end]="endDateControl.value.unix()"></app-dashboard-clients>
+        <app-dashboard-apps *ngIf="table_to_display=='apps'" [start]="startDateControl.value.unix()" [end]="endDateControl.value.unix()"></app-dashboard-apps>
     </div>
 </div>

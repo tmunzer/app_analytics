@@ -16,6 +16,7 @@ import { Label } from 'ng2-charts';
 import { ChartDataSets } from 'chart.js';
 
 import { ErrorDialog } from '../common/common-error';
+
 import * as _moment from 'moment';
 const moment = _moment;
 
@@ -46,9 +47,8 @@ export class DashboardComponent implements OnInit {
   }
   apps: AppElement[] = [];
   clients: ClientElement[] = [];
-  total_rx_string: string = "";
-  total_tx_string: string = "";
-  multiplicator = ["B", "KB", "MB", "GB", "TB", "PB", "EB"]
+  total_rx: number = 0;
+  total_tx: number = 0;
 
   wlans: WlanElement[] = [];
 
@@ -63,10 +63,8 @@ export class DashboardComponent implements OnInit {
 
 
   // LOADINBG INDICATORS
-  topBarLoading = false;
-  chartLoading = false;
   appsLoading = false;
-  clientsLoading = false;
+  statsLoading = false;
   wlansLoading = false;
   wlansLoaded = false;
 
@@ -150,8 +148,6 @@ export class DashboardComponent implements OnInit {
   }
 
   refresh(): void {
-    console.log(this.startDateControl.value.unix())
-    console.log(this.endDateControl.value.unix())
     this.getSiteStats();
     this.getSiteClients();
   }
@@ -159,19 +155,12 @@ export class DashboardComponent implements OnInit {
   /////           LOAD SITE STATS
   //////////////////////////////////////////////////////////////////////////////
 
-  processTxRx(bytes_array: number[]): string {
+  processTxRx(bytes_array: number[]): number {
     let bytes = 0;
-    let m = 0;
-    let result = "";
     for (let i in bytes_array) {
       bytes = bytes + bytes_array[i];
     }
-    while (bytes >= 1000) {
-      bytes = bytes / 1000;
-      m += 1;
-    }
-    result = bytes.toFixed(2) + " " + this.multiplicator[m];
-    return result;
+    return bytes;
   }
 
   parseBandwidth(data): void {
@@ -204,8 +193,8 @@ export class DashboardComponent implements OnInit {
         fill: 'origin',
       }
     ];
-    this.total_tx_string = this.processTxRx(data["tx_bytes"])
-    this.total_rx_string = this.processTxRx(data["rx_bytes"])
+    this.total_tx = this.processTxRx(data["tx_bytes"])
+    this.total_rx = this.processTxRx(data["rx_bytes"])
   }
 
 
@@ -213,16 +202,18 @@ export class DashboardComponent implements OnInit {
     var body = null
     body = { host: this.host, cookies: this.cookies, headers: this.headers, site_id: this.site_id, start: this.getStart(), end: this.getEnd() }
     if (body) {
-      this.chartLoading = true;
+      this.appsLoading = true;
+      this._appsService.displaySet(false);
       this._http.post<any[]>('/api/sites/stats/', body).subscribe({
         next: data => {
           this.parseBandwidth(data);
           this._appsService.appsSet(data["top-app-by-bytes"]);
           this.apps = data["top-app-by-bytes"];
-          this.chartLoading = false;
+          this._appsService.displaySet(true);
+          this.appsLoading = false;
         },
         error: error => {
-          this.chartLoading = false;
+          this.appsLoading = false;
           var message: string = "There was an error... "
           if ("error" in error) { message += error["error"]["message"] }
           this.openError(message)
@@ -239,7 +230,7 @@ export class DashboardComponent implements OnInit {
   parseSiteClients(data): void {
     this.clients = data["clients"]
     this.clients.forEach(client => {
-      client.total_bytes = client.rx_bytes + client.tx_bytes
+      client.total_bytes_24h = client.rx_bytes + client.tx_bytes
     })
     this._clientsService.clientsSet(this.clients)
 
@@ -247,16 +238,18 @@ export class DashboardComponent implements OnInit {
 
   getSiteClients() {
     var body = null
-    body = { host: this.host, cookies: this.cookies, headers: this.headers, site_id: this.site_id }
+    body = { host: this.host, cookies: this.cookies, headers: this.headers, site_id: this.site_id, start: this.getStart(), end: this.getEnd()  }
     if (body) {
-      this.clientsLoading = true;
+      this.statsLoading = true;
+      this._clientsService.displaySet(false);
       this._http.post<any[]>('/api/sites/clients/', body).subscribe({
         next: data => {
           this.parseSiteClients(data);
-          this.clientsLoading = false;
+          this._clientsService.displaySet(true);
+          this.statsLoading = false;
         },
         error: error => {
-          this.clientsLoading = false;
+          this.statsLoading = false;
           var message: string = "There was an error... "
           if ("error" in error) { message += error["error"]["message"] }
           this.openError(message)
@@ -274,7 +267,6 @@ export class DashboardComponent implements OnInit {
       this._http.post<any[]>('/api/sites/wlans/', body).subscribe({
         next: data => {
           this._wlansService.wlansSet(data["wlans"]);
-          this._clientsService.displaySet(true);
           this.wlansLoaded = true;
           this.wlansLoading = false;
         },
@@ -286,8 +278,9 @@ export class DashboardComponent implements OnInit {
         }
       })
     }
-
   }
+
+
 
   //////////////////////////////////////////////////////////////////////////////
   /////           COMMON
@@ -308,7 +301,7 @@ export class DashboardComponent implements OnInit {
     })
   }
 
-  back():void {
+  back(): void {
     this._router.navigateByUrl("/select")
   }
 

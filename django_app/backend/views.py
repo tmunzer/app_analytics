@@ -42,9 +42,9 @@ def get_site_stats(request):
         return JsonResponse(status=response["status"], data=response["data"])
     else:
         return Http404
-
+        
 @csrf_exempt
-def get_sites_clients(request):
+def get_site_clients(request):
     if request.method == 'POST':
         response = SiteStats().get_site_clients(request.body)
         return JsonResponse(status=response["status"], data=response["data"])
@@ -53,8 +53,22 @@ def get_sites_clients(request):
 
 ##########
 # App Stats
+@csrf_exempt
+def get_app_details(request):
+    if request.method == 'POST':
+        response = AppStats().get_app_stats(request.body)
+        return JsonResponse(status=response["status"], data=response["data"])
+    else:
+        return Http404
 ##########
 # Client Stats
+@csrf_exempt
+def get_client_details(request):
+    if request.method == 'POST':
+        response = ClientStats().get_client_stats(request.body)
+        return JsonResponse(status=response["status"], data=response["data"])
+    else:
+        return Http404
 ##########
 # Sites
 

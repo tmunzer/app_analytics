@@ -34,6 +34,13 @@ button {
 
 /* CARDS */
 
+.loading {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgb(199 199 199 / 77%);
+}
+
 .info {
     height: 4em;
     width: 15em;
@@ -84,4 +91,19 @@ tr.mat-footer-row {
 
 .mat-cell {
     font-size: small;
+}
+
+
+/* Client Details Table */
+
+table.details th {
+    text-align: start;
+    text-transform: uppercase;
+    font-weight: 100;
+    width: 8em;
+}
+
+table.details td {
+    text-align: start;
+    font-weight: normal;
 }

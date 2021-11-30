@@ -4,7 +4,9 @@ from . import views
 
 urlpatterns = [
     path('sites/stats/', views.get_site_stats, name='get_site_stats'),
-    path('sites/clients/', views.get_sites_clients, name='get_sites_clients'),
+    path('sites/clients/', views.get_site_clients, name='get_site_clients'),
+    path('details/apps/', views.get_app_details, name='get_app_details'),
+    path('details/clients/', views.get_client_details, name='get_client_details'),
     path('login/', views.login, name='login'),
     path('sites/', views.get_sites, name='get_sites'),    
     path('sites/wlans/', views.get_site_wlans, name='get_sites_wlans'),    

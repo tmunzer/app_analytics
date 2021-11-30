@@ -3,7 +3,7 @@ import { Pipe, PipeTransform } from '@angular/core';
 @Pipe({ name: 'bytessize' })
 
 export class BytesPipe implements PipeTransform {
-    transform(size: number) {
+    transform(size: number = 0) {
         const multiplicator = ["B", "KB", "MB", "GB", "TB", "PB", "EB"]
         let m = 0;
         let result = "";

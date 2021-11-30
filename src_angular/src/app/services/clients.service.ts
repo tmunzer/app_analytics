@@ -39,6 +39,7 @@ export interface ClientElement {
   tx_bytes: number,
   rx_bytes: number,
   total_bytes: number,
+  total_bytes_24h: number,
   tx_retries: number,
   rx_retries: number,
   tx_bps: number,

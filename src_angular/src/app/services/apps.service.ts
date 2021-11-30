@@ -16,13 +16,19 @@ export interface AppElement {
 })
 export class AppsService {
   private appsSource = new BehaviorSubject([]);
-
   apps = this.appsSource.asObservable();
+
+  private displaySource = new BehaviorSubject(false);
+  display = this.displaySource.asObservable();
 
   constructor() { }
 
   appsSet(data: AppElement[]) {
     this.appsSource.next(data)
+  }
+  
+  displaySet(data: boolean){
+    this.displaySource.next(data);
   }
 
 }
