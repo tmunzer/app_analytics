@@ -61,17 +61,15 @@ export class OrgComponent implements OnInit {
     // only orgs with admin/write/installer roles are used
     if (this.self != {} && this.self["privileges"]) {
       this.self["privileges"].forEach(element => {
-        if (element["role"] == "admin" || element["role"] == "write") {
-          if (element["scope"] == "org") {
-            if (tmp_orgs.indexOf(element["org_id"]) < 0) {
-              this.orgs.push({ id: element["org_id"], name: element["name"], role: element["role"] })
-              tmp_orgs.push(element["org_id"])
-            }
-          } else if (element["scope"] == "site") {
-            if (tmp_orgs.indexOf(element["org_id"]) < 0) {
-              this.orgs.push({ id: element["org_id"], name: element["org_name"], role: element["role"] })
-              tmp_orgs.push(element["org_id"])
-            }
+        if (element["scope"] == "org") {
+          if (tmp_orgs.indexOf(element["org_id"]) < 0) {
+            this.orgs.push({ id: element["org_id"], name: element["name"], role: element["role"] })
+            tmp_orgs.push(element["org_id"])
+          }
+        } else if (element["scope"] == "site") {
+          if (tmp_orgs.indexOf(element["org_id"]) < 0) {
+            this.orgs.push({ id: element["org_id"], name: element["org_name"], role: element["role"] })
+            tmp_orgs.push(element["org_id"])
           }
         }
       });
@@ -108,7 +106,7 @@ export class OrgComponent implements OnInit {
     this.topBarLoading = true;
     this.claimDisabled = true;
     this.sites = [];
-    this._http.post<any>('/api/sites/', { host: this.host, cookies: this.cookies, headers: this.headers, org_id: this.org_id}).subscribe({
+    this._http.post<any>('/api/sites/', { host: this.host, cookies: this.cookies, headers: this.headers, org_id: this.org_id }).subscribe({
       next: data => this.parseSites(data),
       error: error => {
         var message: string = "There was an error... "
@@ -140,7 +138,7 @@ export class OrgComponent implements OnInit {
   // used when user wants to claim devices to org
   setOrg(): void {
     this.orgMode = true;
-    this.gotoDash();    
+    this.gotoDash();
   }
   // used when user wants to claim devices to site
   setSite(site): void {
@@ -154,7 +152,7 @@ export class OrgComponent implements OnInit {
     this.gotoDash();
   }
   // publish variables and go to the dashboard
-  gotoDash(): void {    
+  gotoDash(): void {
     this._loginService.orgModeSet(this.orgMode)
     this._loginService.orgIdSet(this.org_id);
     this._router.navigate(["/dashboard"]);

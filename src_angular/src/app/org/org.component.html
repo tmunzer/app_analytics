@@ -34,7 +34,7 @@
             </div>
         </mat-card>
     </div>
-    <div fxLayout="row wrap" fxLayoutAlign="space-between stretch">
+    <div fxLayout="row wrap">
         <mat-card *ngFor="let site of sites" class="mat-elevation-z2" fxLayout="column" fxLayoutAlign="space-between stretch" style="cursor: pointer;margin: 10px; padding: 0px; width: 300px;">
             <div (click)="setSite(site)">
                 <mat-card-title style="margin:10px">
