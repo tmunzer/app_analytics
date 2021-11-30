@@ -766,30 +766,47 @@
             });
 
             this.me = this.self["email"] || null;
-            var tmp_orgs = []; // parsing all the orgs/sites from the privileges
+            this.displayOrgs();
+          }
+        }, {
+          key: "displayOrgs",
+          value: function displayOrgs() {
+            var _this2 = this;
+
+            var tmp_orgs = []; // roles: admin / write / read / helpdesk / none
+
+            var allowed_roles = ["admin", "write", "read"]; // parsing all the orgs/sites from the privileges
             // only orgs with admin/write/installer roles are used
 
             if (this.self != {} && this.self["privileges"]) {
               this.self["privileges"].forEach(function (element) {
-                if (element["scope"] == "org") {
-                  if (tmp_orgs.indexOf(element["org_id"]) < 0) {
-                    _this.orgs.push({
-                      id: element["org_id"],
-                      name: element["name"],
-                      role: element["role"]
-                    });
+                if (allowed_roles.indexOf(element["role"]) > -1) {
+                  if (element["scope"] == "org") {
+                    if (tmp_orgs.indexOf(element["org_id"]) < 0) {
+                      _this2.orgs.push({
+                        id: element["org_id"],
+                        name: element["name"],
+                        role: element["role"],
+                        scope: element["scope"],
+                        site_ids: []
+                      });
 
-                    tmp_orgs.push(element["org_id"]);
-                  }
-                } else if (element["scope"] == "site") {
-                  if (tmp_orgs.indexOf(element["org_id"]) < 0) {
-                    _this.orgs.push({
-                      id: element["org_id"],
-                      name: element["org_name"],
-                      role: element["role"]
-                    });
+                      tmp_orgs.push(element["org_id"]);
+                    }
+                  } else if (element["scope"] == "site") {
+                    if (tmp_orgs.indexOf(element["org_id"]) < 0) {
+                      _this2.orgs.push({
+                        id: element["org_id"],
+                        name: element["org_name"],
+                        role: element["role"],
+                        scope: element["scope"],
+                        site_ids: [element["site_id"]]
+                      });
 
-                    tmp_orgs.push(element["org_id"]);
+                      tmp_orgs.push(element["org_id"]);
+                    } else {
+                      _this2.addSiteToOrg(element);
+                    }
                   }
                 }
               });
@@ -798,21 +815,29 @@
 
 
             if (!this.org_id && this.orgs.length == 1) {
-              this.selected_org_obj.id = this.orgs[0]["id"];
-              this.changeOrg();
+              this.org_id = this.orgs[0]["org_id"];
             } // if back button used, retrieving previously selected org
             // or if only one org, loading it automatically
 
 
             if (this.org_id) {
               this.orgs.forEach(function (element) {
-                if (element.id == _this.org_id) {
-                  _this.selected_org_obj = element;
+                if (element.id == _this2.org_id) {
+                  _this2.selected_org_obj = element;
 
-                  _this.changeOrg();
+                  _this2.changeOrg();
                 }
               });
             }
+          }
+        }, {
+          key: "addSiteToOrg",
+          value: function addSiteToOrg(element) {
+            this.orgs.forEach(function (org) {
+              if (org["org_id"] = element["org_id"]) {
+                org["site_ids"].push(element["site_id"]);
+              }
+            });
           } // when the user selects a new org
           // disabling the admin mode
           // and loading the sites
@@ -820,27 +845,30 @@
         }, {
           key: "changeOrg",
           value: function changeOrg() {
+            console.log(this.selected_org_obj);
             this.loadSites();
           } // loads the org sites
 
         }, {
           key: "loadSites",
           value: function loadSites() {
-            var _this2 = this;
+            var _this3 = this;
 
             this.org_id = this.selected_org_obj.id;
             this.topBarLoading = true;
             this.claimDisabled = true;
             this.sites = [];
+            console.log(this.selected_org_obj);
 
             this._http.post('/api/sites/', {
               host: this.host,
               cookies: this.cookies,
               headers: this.headers,
-              org_id: this.org_id
+              org_id: this.org_id,
+              site_ids: this.selected_org_obj["site_ids"]
             }).subscribe({
               next: function next(data) {
-                return _this2.parseSites(data);
+                return _this3.parseSites(data);
               },
               error: function error(_error) {
                 var message = "There was an error... ";
@@ -849,9 +877,9 @@
                   message += _error["error"]["message"];
                 }
 
-                _this2.topBarLoading = false;
+                _this3.topBarLoading = false;
 
-                _this2.openError(message);
+                _this3.openError(message);
               }
             });
           } // parse the org sites from HTTP response
@@ -1744,39 +1772,39 @@
         _createClass(DashboardComponent, [{
           key: "ngOnInit",
           value: function ngOnInit() {
-            var _this3 = this;
+            var _this4 = this;
 
             this.startDateControl.setValue(this.setMinutes(this.startDateControl.value));
             this.startDateControl.valueChanges.subscribe(function (value) {
-              _this3.min_end_date = moment(value);
+              _this4.min_end_date = moment(value);
             });
             this.endDateControl.setValue(this.setMinutes(this.endDateControl.value));
             this.endDateControl.valueChanges.subscribe(function (value) {
-              _this3.max_start_date = moment(value);
+              _this4.max_start_date = moment(value);
             });
 
             this._loginService.headers.subscribe(function (headers) {
-              return _this3.headers = headers;
+              return _this4.headers = headers;
             });
 
             this._loginService.cookies.subscribe(function (cookies) {
-              return _this3.cookies = cookies;
+              return _this4.cookies = cookies;
             });
 
             this._loginService.host.subscribe(function (host) {
-              return _this3.host = host;
+              return _this4.host = host;
             });
 
             this._loginService.self.subscribe(function (self) {
-              return _this3.self = self || {};
+              return _this4.self = self || {};
             });
 
             this._loginService.org_id.subscribe(function (org_id) {
-              return _this3.org_id = org_id;
+              return _this4.org_id = org_id;
             });
 
             this._loginService.site_id.subscribe(function (site_id) {
-              return _this3.site_id = site_id;
+              return _this4.site_id = site_id;
             });
 
             this.getSiteStats();
@@ -1870,7 +1898,7 @@
         }, {
           key: "getSiteStats",
           value: function getSiteStats() {
-            var _this4 = this;
+            var _this5 = this;
 
             var body = null;
             body = {
@@ -1887,22 +1915,22 @@
 
               this._http.post('/api/sites/stats/', body).subscribe({
                 next: function next(data) {
-                  _this4.parseBandwidth(data);
+                  _this5.parseBandwidth(data);
 
-                  _this4._appsService.appsSet(data["top-app-by-bytes"]);
+                  _this5._appsService.appsSet(data["top-app-by-bytes"]);
 
-                  _this4.apps = data["top-app-by-bytes"];
-                  _this4.chartLoading = false;
+                  _this5.apps = data["top-app-by-bytes"];
+                  _this5.chartLoading = false;
                 },
                 error: function error(_error2) {
-                  _this4.chartLoading = false;
+                  _this5.chartLoading = false;
                   var message = "There was an error... ";
 
                   if ("error" in _error2) {
                     message += _error2["error"]["message"];
                   }
 
-                  _this4.openError(message);
+                  _this5.openError(message);
                 }
               });
             }
@@ -1923,7 +1951,7 @@
         }, {
           key: "getSiteClients",
           value: function getSiteClients() {
-            var _this5 = this;
+            var _this6 = this;
 
             var body = null;
             body = {
@@ -1938,19 +1966,19 @@
 
               this._http.post('/api/sites/clients/', body).subscribe({
                 next: function next(data) {
-                  _this5.parseSiteClients(data);
+                  _this6.parseSiteClients(data);
 
-                  _this5.clientsLoading = false;
+                  _this6.clientsLoading = false;
                 },
                 error: function error(_error3) {
-                  _this5.clientsLoading = false;
+                  _this6.clientsLoading = false;
                   var message = "There was an error... ";
 
                   if ("error" in _error3) {
                     message += _error3["error"]["message"];
                   }
 
-                  _this5.openError(message);
+                  _this6.openError(message);
                 }
               });
             }
@@ -1958,7 +1986,7 @@
         }, {
           key: "getSiteWlans",
           value: function getSiteWlans() {
-            var _this6 = this;
+            var _this7 = this;
 
             var body = null;
             this.wlansLoaded = false;
@@ -1974,22 +2002,22 @@
 
               this._http.post('/api/sites/wlans/', body).subscribe({
                 next: function next(data) {
-                  _this6._wlansService.wlansSet(data["wlans"]);
+                  _this7._wlansService.wlansSet(data["wlans"]);
 
-                  _this6._clientsService.displaySet(true);
+                  _this7._clientsService.displaySet(true);
 
-                  _this6.wlansLoaded = true;
-                  _this6.wlansLoading = false;
+                  _this7.wlansLoaded = true;
+                  _this7.wlansLoading = false;
                 },
                 error: function error(_error4) {
-                  _this6.wlansLoading = false;
+                  _this7.wlansLoading = false;
                   var message = "There was an error... ";
 
                   if ("error" in _error4) {
                     message += _error4["error"]["message"];
                   }
 
-                  _this6.openError(message);
+                  _this7.openError(message);
                 }
               });
             }
@@ -3788,22 +3816,22 @@
         _createClass(ClientsComponent, [{
           key: "ngAfterViewInit",
           value: function ngAfterViewInit() {
-            var _this7 = this;
+            var _this8 = this;
 
             this._clientsService.clients.subscribe(function (clients) {
-              _this7.clients = clients;
+              _this8.clients = clients;
 
-              _this7.displayTable();
+              _this8.displayTable();
             });
 
             this._clientsService.display.subscribe(function (display) {
-              _this7.display = display;
+              _this8.display = display;
 
-              _this7.displayTable();
+              _this8.displayTable();
             });
 
             this._wlanService.wlans.subscribe(function (wlans) {
-              return _this7.wlans = wlans;
+              return _this8.wlans = wlans;
             });
           }
         }, {
@@ -4370,11 +4398,11 @@
         _createClass(AppsComponent, [{
           key: "ngAfterViewInit",
           value: function ngAfterViewInit() {
-            var _this8 = this;
+            var _this9 = this;
 
             this._appsService.apps.subscribe(function (apps) {
-              _this8.appsDataSource = new _angular_material_table__WEBPACK_IMPORTED_MODULE_2__["MatTableDataSource"](apps);
-              _this8.appsDataSource.sort = _this8.sort;
+              _this9.appsDataSource = new _angular_material_table__WEBPACK_IMPORTED_MODULE_2__["MatTableDataSource"](apps);
+              _this9.appsDataSource.sort = _this9.sort;
             });
           } //////////////////////////////////////////////////////////////////////////////
           /////           COMMON
@@ -5042,7 +5070,7 @@
         _createClass(LoginComponent, [{
           key: "ngOnInit",
           value: function ngOnInit() {
-            var _this9 = this;
+            var _this10 = this;
 
             this.frmStepLogin = this._formBuilder.group({
               host: ['api.mist.com'],
@@ -5055,7 +5083,7 @@
 
             this._http.get('/api/gap').subscribe({
               next: function next(data) {
-                return _this9._loginService.googleApiKeySet(data.gap);
+                return _this10._loginService.googleApiKeySet(data.gap);
               },
               error: function error(_error5) {
                 return console.error("Unable to load the Google API Key... Maps won't be available...");
@@ -5064,9 +5092,9 @@
 
             this._http.get("/api/disclaimer").subscribe({
               next: function next(data) {
-                if (data.disclaimer) _this9.disclaimer = data.disclaimer;
-                if (data.github_url) _this9.github_url = data.github_url;
-                if (data.docker_url) _this9.docker_url = data.docker_url;
+                if (data.disclaimer) _this10.disclaimer = data.disclaimer;
+                if (data.github_url) _this10.github_url = data.github_url;
+                if (data.docker_url) _this10.docker_url = data.docker_url;
               }
             });
           } //// COMMON ////
@@ -5154,7 +5182,7 @@
         }, {
           key: "submitCredentials",
           value: function submitCredentials() {
-            var _this10 = this;
+            var _this11 = this;
 
             this.reset_response();
 
@@ -5167,10 +5195,10 @@
                 password: this.frmStepLogin.value.credentials.password
               }).subscribe({
                 next: function next(data) {
-                  return _this10.parse_response(data);
+                  return _this11.parse_response(data);
                 },
                 error: function error(_error6) {
-                  return _this10.error_message("credentials", _error6.error.message);
+                  return _this11.error_message("credentials", _error6.error.message);
                 }
               });
             }
@@ -5178,7 +5206,7 @@
         }, {
           key: "submitToken",
           value: function submitToken() {
-            var _this11 = this;
+            var _this12 = this;
 
             this.reset_response();
 
@@ -5190,10 +5218,10 @@
                 token: this.frmStepLogin.value.token
               }).subscribe({
                 next: function next(data) {
-                  return _this11.parse_response(data);
+                  return _this12.parse_response(data);
                 },
                 error: function error(_error7) {
-                  return _this11.error_message("credentials", _error7.error.message);
+                  return _this12.error_message("credentials", _error7.error.message);
                 }
               });
             }
@@ -5201,7 +5229,7 @@
         }, {
           key: "submit2FA",
           value: function submit2FA(twoFactor) {
-            var _this12 = this;
+            var _this13 = this;
 
             if (this.check_host()) {
               this.loading = true;
@@ -5213,10 +5241,10 @@
                 two_factor: twoFactor
               }).subscribe({
                 next: function next(data) {
-                  return _this12.parse_response(data);
+                  return _this13.parse_response(data);
                 },
                 error: function error(_error8) {
-                  return _this12.error_message("credentials", _error8.error.message);
+                  return _this13.error_message("credentials", _error8.error.message);
                 }
               });
             }
@@ -5225,12 +5253,12 @@
         }, {
           key: "open2FA",
           value: function open2FA() {
-            var _this13 = this;
+            var _this14 = this;
 
             var dialogRef = this._dialog.open(_login_2FA__WEBPACK_IMPORTED_MODULE_1__["TwoFactorDialog"], {});
 
             dialogRef.afterClosed().subscribe(function (result) {
-              _this13.submit2FA(result);
+              _this14.submit2FA(result);
             });
           }
         }]);

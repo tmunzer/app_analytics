@@ -380,21 +380,31 @@ class OrgComponent {
         this._loginService.self.subscribe(self => this.self = self || {});
         this._loginService.org_id.subscribe(org_id => this.org_id = org_id);
         this.me = this.self["email"] || null;
+        this.displayOrgs();
+    }
+    displayOrgs() {
         var tmp_orgs = [];
+        // roles: admin / write / read / helpdesk / none
+        const allowed_roles = ["admin", "write", "read"];
         // parsing all the orgs/sites from the privileges
         // only orgs with admin/write/installer roles are used
         if (this.self != {} && this.self["privileges"]) {
             this.self["privileges"].forEach(element => {
-                if (element["scope"] == "org") {
-                    if (tmp_orgs.indexOf(element["org_id"]) < 0) {
-                        this.orgs.push({ id: element["org_id"], name: element["name"], role: element["role"] });
-                        tmp_orgs.push(element["org_id"]);
+                if (allowed_roles.indexOf(element["role"]) > -1) {
+                    if (element["scope"] == "org") {
+                        if (tmp_orgs.indexOf(element["org_id"]) < 0) {
+                            this.orgs.push({ id: element["org_id"], name: element["name"], role: element["role"], scope: element["scope"], site_ids: [] });
+                            tmp_orgs.push(element["org_id"]);
+                        }
                     }
-                }
-                else if (element["scope"] == "site") {
-                    if (tmp_orgs.indexOf(element["org_id"]) < 0) {
-                        this.orgs.push({ id: element["org_id"], name: element["org_name"], role: element["role"] });
-                        tmp_orgs.push(element["org_id"]);
+                    else if (element["scope"] == "site") {
+                        if (tmp_orgs.indexOf(element["org_id"]) < 0) {
+                            this.orgs.push({ id: element["org_id"], name: element["org_name"], role: element["role"], scope: element["scope"], site_ids: [element["site_id"]] });
+                            tmp_orgs.push(element["org_id"]);
+                        }
+                        else {
+                            this.addSiteToOrg(element);
+                        }
                     }
                 }
             });
@@ -402,8 +412,7 @@ class OrgComponent {
         }
         // if only one, using it by default
         if (!this.org_id && this.orgs.length == 1) {
-            this.selected_org_obj.id = this.orgs[0]["id"];
-            this.changeOrg();
+            this.org_id = this.orgs[0]["org_id"];
         }
         // if back button used, retrieving previously selected org
         // or if only one org, loading it automatically
@@ -416,10 +425,18 @@ class OrgComponent {
             });
         }
     }
+    addSiteToOrg(element) {
+        this.orgs.forEach(org => {
+            if (org["org_id"] = element["org_id"]) {
+                org["site_ids"].push(element["site_id"]);
+            }
+        });
+    }
     // when the user selects a new org
     // disabling the admin mode
     // and loading the sites
     changeOrg() {
+        console.log(this.selected_org_obj);
         this.loadSites();
     }
     // loads the org sites
@@ -428,7 +445,8 @@ class OrgComponent {
         this.topBarLoading = true;
         this.claimDisabled = true;
         this.sites = [];
-        this._http.post('/api/sites/', { host: this.host, cookies: this.cookies, headers: this.headers, org_id: this.org_id }).subscribe({
+        console.log(this.selected_org_obj);
+        this._http.post('/api/sites/', { host: this.host, cookies: this.cookies, headers: this.headers, org_id: this.org_id, site_ids: this.selected_org_obj["site_ids"] }).subscribe({
             next: data => this.parseSites(data),
             error: error => {
                 var message = "There was an error... ";
