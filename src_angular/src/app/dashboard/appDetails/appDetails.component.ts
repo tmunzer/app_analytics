@@ -124,7 +124,6 @@ export class AppDetailsComponent implements OnInit {
   }
 
   displayTable(): void {
-    console.log(this.clients)
     this.dataSource = new MatTableDataSource<ClientElement>(this.clients);
     this.dataSource.sort = this.sort;
   }
@@ -167,7 +166,7 @@ export class AppDetailsComponent implements OnInit {
   }
 
   findClientInfo(mac: string): ClientElement {
-    var result: ClientElement;
+    var result = { mac: mac } as ClientElement;
     this.clientList.forEach(client => {
       if (client.mac == mac) {
         result = client;
@@ -214,7 +213,7 @@ export class AppDetailsComponent implements OnInit {
     this._dialogRef.close()
   }
 
-  openClientDetails(client:ClientElement):void {
+  openClientDetails(client: ClientElement): void {
     this._dialogRef.close(client)
   }
   announceSortChange(sortState: Sort) {

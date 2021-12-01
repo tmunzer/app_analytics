@@ -21,7 +21,7 @@
 
             <!-- SSID Column -->
             <ng-container matColumnDef="ssid">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header mat-sort-header style="width: 15%;"> SSID </th>
+                <th mat-header-cell *matHeaderCellDef mat-sort-header mat-sort-header style="width: 10%;"> SSID </th>
                 <td mat-cell *matCellDef="let element"> {{element.wlan_id | wlanname:wlans}} </td>
             </ng-container>
 
@@ -54,20 +54,38 @@
             </ng-container>
             <!-- RX BYTES Column -->
             <ng-container matColumnDef="rx_bytes">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header style="width: 10%; text-align: center;"> RX BYTES
+                <th mat-header-cell *matHeaderCellDef mat-sort-header style="width: 10%; text-align: center;">
+                    <div fxLayout="column">
+                        <div>RX BYTES</div>
+                        <div>since Assoc. Time</div>
+                    </div>
                 </th>
                 <td mat-cell *matCellDef="let element"> {{element.rx_bytes | bytessize}} </td>
             </ng-container>
             <!-- TX BYTES Column -->
             <ng-container matColumnDef="tx_bytes">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header style="width: 10%; text-align: center;"> TX BYTES
+                <th mat-header-cell *matHeaderCellDef mat-sort-header style="width: 10%; text-align: center;">
+                    <div fxLayout="column">
+                        <div>TX BYTES</div>
+                        <div>since Assoc. Time</div>
+                    </div>
                 </th>
                 <td mat-cell *matCellDef="let element"> {{element.tx_bytes | bytessize}} </td>
             </ng-container>
             <!-- TOTAL BYTES Column -->
             <ng-container matColumnDef="total_bytes">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header style="width: 15%; text-align: center;"> TOTAL BYTES </th>
+                <th mat-header-cell *matHeaderCellDef mat-sort-header style="width: 10%; text-align: center;">
+                    <div fxLayout="column">
+                        <div>TOTAL BYTES</div>
+                        <div>since Assoc. Time</div>
+                    </div>
+                </th>
                 <td mat-cell *matCellDef="let element"> {{element.total_bytes | bytessize}} </td>
+            </ng-container>
+            <!-- ASSOC TIME Column -->
+            <ng-container matColumnDef="assoc_time">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header style="width: 10%; text-align: center;"> ASSOC. TIME </th>
+                <td mat-cell *matCellDef="let element"> {{element.assoc_time * 1000 | date:'short' }} </td>
             </ng-container>
 
             <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>

@@ -22,7 +22,7 @@ import { AppDetailsComponent } from '../appDetails/appDetails.component';
 export class ClientsComponent implements AfterViewInit {
   /////////////////////////
   // table
-  displayedColumns: string[] = ['ssid', 'mac', 'hostname', 'username', 'ip', 'tx_bytes', 'rx_bytes','total_bytes'];
+  displayedColumns: string[] = ['ssid', 'mac', 'hostname', 'username', 'ip', 'tx_bytes', 'rx_bytes','total_bytes', 'assoc_time'];
   clientsDataSource: MatTableDataSource<ClientElement> = new MatTableDataSource();
   clientsDisplayed: ClientElement[] = [];
   pageIndex: number = 0;

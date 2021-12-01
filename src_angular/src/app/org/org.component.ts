@@ -55,7 +55,11 @@ export class OrgComponent implements OnInit {
     this._loginService.org_id.subscribe(org_id => this.org_id = org_id)
     this.me = this.self["email"] || null
 
-    this.displayOrgs()
+    if (!this.me) {
+      this._router.navigate(["/login"]);
+    } else {
+      this.displayOrgs();
+    }
   }
 
   displayOrgs(): void {
@@ -101,7 +105,7 @@ export class OrgComponent implements OnInit {
     }
   }
 
-  addSiteToOrg(element):void {
+  addSiteToOrg(element): void {
     this.orgs.forEach(org => {
       if (org["org_id"] = element["org_id"]) {
         org["site_ids"].push(element["site_id"])
@@ -113,7 +117,6 @@ export class OrgComponent implements OnInit {
   // disabling the admin mode
   // and loading the sites
   changeOrg() {
-    console.log(this.selected_org_obj)
     this.loadSites();
   }
 
@@ -123,7 +126,6 @@ export class OrgComponent implements OnInit {
     this.topBarLoading = true;
     this.claimDisabled = true;
     this.sites = [];
-    console.log(this.selected_org_obj)
     this._http.post<any>('/api/sites/', { host: this.host, cookies: this.cookies, headers: this.headers, org_id: this.org_id, site_ids: this.selected_org_obj["site_ids"] }).subscribe({
       next: data => this.parseSites(data),
       error: error => {

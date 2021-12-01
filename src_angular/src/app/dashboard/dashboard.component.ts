@@ -81,6 +81,17 @@ export class DashboardComponent implements OnInit {
     title: {
       display: true,
       text: 'Site Bandwidth'
+    }, scales: {
+      yAxes: [{ display: false }],
+      xAxes: [{
+        type: 'time',
+        distribution: 'linear',
+        time: {
+          parser: 'YYYY-MM-DDTHH:mm:ssZ'
+        }
+      }]
+    }, ticks: {
+      beginAtZero: true
     }
   };
 
@@ -119,11 +130,13 @@ export class DashboardComponent implements OnInit {
     this._loginService.org_id.subscribe(org_id => this.org_id = org_id)
     this._loginService.site_id.subscribe(site_id => this.site_id = site_id)
 
-
-
-    this.getSiteStats();
-    this.getSiteClients();
-    this.getSiteWlans();
+    if (!this.site_id) {
+      this._router.navigate(["/select"]);
+    } else {
+      this.getSiteStats();
+      this.getSiteClients();
+      this.getSiteWlans();
+    }
   }
 
 
@@ -166,7 +179,7 @@ export class DashboardComponent implements OnInit {
   parseBandwidth(data): void {
     this.lineChartLabels = [];
     for (let j in data["rt"]) {
-      this.lineChartLabels.push(new Date(data["rt"][j]).toLocaleTimeString());
+      this.lineChartLabels.push(data["rt"][j]);
     }
     //this.lineChartLabels = data["rt"];
     this.lineChartData = [
@@ -228,17 +241,23 @@ export class DashboardComponent implements OnInit {
   //////////////////////////////////////////////////////////////////////////////
 
   parseSiteClients(data): void {
+    var tmp: ClientElement[] = [];
     this.clients = data["clients"]
     this.clients.forEach(client => {
-      client.total_bytes_24h = client.rx_bytes + client.tx_bytes
+      if (client.mac) {
+        client.total_bytes = client.rx_bytes + client.tx_bytes
+        tmp.push(client)
+      } else {
+        console.log(client)
+      }
     })
-    this._clientsService.clientsSet(this.clients)
+    this._clientsService.clientsSet(tmp)
 
   }
 
   getSiteClients() {
     var body = null
-    body = { host: this.host, cookies: this.cookies, headers: this.headers, site_id: this.site_id, start: this.getStart(), end: this.getEnd()  }
+    body = { host: this.host, cookies: this.cookies, headers: this.headers, site_id: this.site_id, start: this.getStart(), end: this.getEnd() }
     if (body) {
       this.statsLoading = true;
       this._clientsService.displaySet(false);

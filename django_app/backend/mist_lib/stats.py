@@ -41,19 +41,14 @@ class SiteStats(Common):
             return self._get_site_clients(body)
 
     def _get_site_clients(self, body):
-        data = []
         try:
             url = "https://{0}/api/v1/sites/{1}/stats/clients?limit=1000&start={2}&end={3}".format(
                         body["host"], body["site_id"], body["start"], body["end"])            
+            print(url)
             resp = requests.get(
                 url, headers=body["headers"], cookies=body["cookies"])
-            rjson = resp.json()
-            for client in rjson:
-                #tmp = self._get_client_stats(body, client)
-                client["total_bytes"] = client["rx_bytes"] + client["tx_bytes"]
-                data.append(client)
-            return {"status": 200, "data": {"clients": data}}
-        except:
+            return {"status": 200, "data": {"clients": resp.json()}}
+        except :            
             return {"status": 500, "data": {"message": "unable to retrieve the client list"}}
 
     def _get_client_stats(self, body, client):

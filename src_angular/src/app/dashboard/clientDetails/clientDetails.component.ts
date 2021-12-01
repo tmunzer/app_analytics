@@ -65,7 +65,18 @@ export class ClientDetailsComponent implements OnInit {
     maintainAspectRatio: false,
     title: {
       display: true,
-      text: 'Site Bandwidth'
+      text: 'Client Bandwidth'
+    }, scales: {
+      yAxes: [{ display: false }],
+      xAxes: [{
+        type: 'time',
+        distribution: 'linear',
+        time: {
+          parser: 'YYYY-MM-DDTHH:mm:ssZ'
+        }
+      }]
+    }, ticks: {
+      beginAtZero: true
     }
   };
 
@@ -138,10 +149,10 @@ export class ClientDetailsComponent implements OnInit {
   }
 
   displayTable(): void {
-      this.dataSource = new MatTableDataSource<AppElement>(this.apps);
-      this.dataSource.sort = this.sort;
-    }
-  
+    this.dataSource = new MatTableDataSource<AppElement>(this.apps);
+    this.dataSource.sort = this.sort;
+  }
+
   //////////////////////////////////////////////////////////////////////////////
   /////           TIME MANAGEMENT
   //////////////////////////////////////////////////////////////////////////////
@@ -183,9 +194,8 @@ export class ClientDetailsComponent implements OnInit {
   parseBandwidth(data): void {
     this.lineChartLabels = [];
     for (let j in data["rt"]) {
-      this.lineChartLabels.push(new Date(data["rt"][j]).toLocaleTimeString());
+      this.lineChartLabels.push(data["rt"][j]);
     }
-    //this.lineChartLabels = data["rt"];
     this.lineChartData = [
       {
         data: data["rx_bytes"],
@@ -238,10 +248,10 @@ export class ClientDetailsComponent implements OnInit {
   //////////////////////////////////////////////////////////////////////////////
   /////           COMMON
   //////////////////////////////////////////////////////////////////////////////
-  close():void {
+  close(): void {
     this._dialogRef.close();
   }
-  openAppDetails(app:AppElement):void {
+  openAppDetails(app: AppElement): void {
     this._dialogRef.close(app);
   }
 
