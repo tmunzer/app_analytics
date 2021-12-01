@@ -7,11 +7,13 @@ export class BytesPipe implements PipeTransform {
         const multiplicator = ["B", "KB", "MB", "GB", "TB", "PB", "EB"]
         let m = 0;
         let result = "";
-        while (size >= 1000) {
-            size = size / 1000;
-            m += 1;
+        if (size) {
+            while (size >= 1000) {
+                size = size / 1000;
+                m += 1;
+            }
+            result = size.toFixed(2) + " " + multiplicator[m];
         }
-        result = size.toFixed(2) + " " + multiplicator[m];
         return result;
     }
 }
