@@ -39,6 +39,7 @@ export class DashboardComponent implements OnInit {
   maps = [];
   org_id: string = "";
   site_id: string = "__any__";
+  site_name: string = "__any__";
   me: string = "";
 
   bandwidth = {
@@ -129,6 +130,7 @@ export class DashboardComponent implements OnInit {
     this._loginService.self.subscribe(self => this.self = self || {})
     this._loginService.org_id.subscribe(org_id => this.org_id = org_id)
     this._loginService.site_id.subscribe(site_id => this.site_id = site_id)
+    this._loginService.site_name.subscribe(site_name => this.site_name = site_name)
 
     if (!this.site_id) {
       this._router.navigate(["/select"]);

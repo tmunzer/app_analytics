@@ -169,6 +169,7 @@ export class OrgComponent implements OnInit {
     }
     this.orgMode = true;
     this._loginService.siteIdSet(this.site_id);
+    this._loginService.siteNameSet(site.name);
     this.gotoDash();
   }
   // publish variables and go to the dashboard

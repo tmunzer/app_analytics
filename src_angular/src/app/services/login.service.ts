@@ -11,6 +11,7 @@ export class LoginService {
   private selfSource = new BehaviorSubject({});
   private orgIdSource = new BehaviorSubject("");
   private siteIdSource = new BehaviorSubject("");
+  private siteNameSource = new BehaviorSubject("");
   private orgModeSource = new BehaviorSubject(false);
   private googleApiKey = new BehaviorSubject("");
 
@@ -20,6 +21,7 @@ export class LoginService {
   self = this.selfSource.asObservable();
   org_id = this.orgIdSource.asObservable();
   site_id = this.siteIdSource.asObservable();
+  site_name = this.siteNameSource.asObservable();
   orgMode = this.orgModeSource.asObservable();
   google_api_key = this.googleApiKey.asObservable();
 
@@ -42,6 +44,9 @@ export class LoginService {
   }
   siteIdSet(data: string) {
     this.siteIdSource.next(data)
+  }
+  siteNameSet(data: string) {
+    this.siteNameSource.next(data)
   }
   orgModeSet(data: boolean) {
     this.orgModeSource.next(data)
