@@ -18,11 +18,14 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 - Provides the list of Wi-Fi clients per application
 
 
-
-<img src="https://github.com/tmunzer/app_analytics/raw/main/._readme/clients.png"  width="50%"  />
-<img src="https://github.com/tmunzer/app_analytics/raw/main/._readme/client_detail.png"  width="50%"  />
+<div style="display:flex;flex-direction:row;justify-content: space-between;">
+<img src="https://github.com/tmunzer/app_analytics/raw/main/._readme/clients.png"  width="45%"  />
+<img src="https://github.com/tmunzer/app_analytics/raw/main/._readme/client_detail.png"  width="45%"  />
+ </div>
+<div style="display:flex;flex-direction:row;justify-content: space-between;">
 <img src="https://github.com/tmunzer/app_analytics/raw/main/._readme/apps.png"  width="50%"  />
 <img src="https://github.com/tmunzer/app_analytics/raw/main/._readme/app_detail.png"  width="50%"  />
+ </div>
 
 
 ## How it's working
