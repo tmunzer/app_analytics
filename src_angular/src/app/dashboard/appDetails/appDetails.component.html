@@ -86,7 +86,7 @@
                         </th>
                         <td mat-cell *matCellDef="let element">
                             <a [routerLink]="" (click)="openClientDetails(element)" style="color: #0095a3;">
-                                {{element.mac}}
+                                {{element.mac | mac}}
                             </a>
                         </td>
                     </ng-container>
