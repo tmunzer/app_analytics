@@ -20,9 +20,9 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 
 
 <img src="https://github.com/tmunzer/app_analytics/raw/main/._readme/clients.png"  width="50%"  />
-<img src="https://github.com/tmunzer/app_analytics/raw/main/._readme/client_details.png"  width="50%"  />
+<img src="https://github.com/tmunzer/app_analytics/raw/main/._readme/client_detail.png"  width="50%"  />
 <img src="https://github.com/tmunzer/app_analytics/raw/main/._readme/apps.png"  width="50%"  />
-<img src="https://github.com/tmunzer/app_analytics/raw/main/._readme/app_details.png"  width="50%"  />
+<img src="https://github.com/tmunzer/app_analytics/raw/main/._readme/app_detail.png"  width="50%"  />
 
 
 ## How it's working
