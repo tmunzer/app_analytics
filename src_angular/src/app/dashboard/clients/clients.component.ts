@@ -28,7 +28,7 @@ export class ClientsComponent implements AfterViewInit {
   pageIndex: number = 0;
   pageSize: number = 25;
   pageLength: number = 0;
-  pageSizeOptions: number[] = [5, 25, 50];
+  pageSizeOptions: number[] = [25, 50, 100];
 
 
   spinnerMode: string = "indeterminate";
@@ -76,6 +76,7 @@ export class ClientsComponent implements AfterViewInit {
     if (this.display) {
       this.clientsDataSource = new MatTableDataSource(this.clients);
       this.clientsDataSource.sort = this.sort;
+      this.clientsDataSource.paginator = this.paginator;
     }
   }
 

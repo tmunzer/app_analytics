@@ -3450,7 +3450,7 @@
           this.pageIndex = 0;
           this.pageSize = 25;
           this.pageLength = 0;
-          this.pageSizeOptions = [5, 25, 50];
+          this.pageSizeOptions = [25, 50, 100];
           this.wlans = [];
           this.clients = [];
           this.clientList = [];
@@ -3533,6 +3533,7 @@
           value: function displayTable() {
             this.dataSource = new _angular_material_table__WEBPACK_IMPORTED_MODULE_5__["MatTableDataSource"](this.clients);
             this.dataSource.sort = this.sort;
+            this.dataSource.paginator = this.paginator;
           } //////////////////////////////////////////////////////////////////////////////
           /////           TIME MANAGEMENT
           //////////////////////////////////////////////////////////////////////////////
@@ -5233,7 +5234,7 @@
           this.pageIndex = 0;
           this.pageSize = 25;
           this.pageLength = 0;
-          this.pageSizeOptions = [5, 25, 50]; /////////////////////////
+          this.pageSizeOptions = [25, 50, 100]; /////////////////////////
           // Line Chart
 
           this.lineChartLabels = [];
@@ -5340,6 +5341,7 @@
           value: function displayTable() {
             this.dataSource = new _angular_material_table__WEBPACK_IMPORTED_MODULE_5__["MatTableDataSource"](this.apps);
             this.dataSource.sort = this.sort;
+            this.dataSource.paginator = this.paginator;
           } //////////////////////////////////////////////////////////////////////////////
           /////           TIME MANAGEMENT
           //////////////////////////////////////////////////////////////////////////////
@@ -6504,7 +6506,7 @@
           this.pageIndex = 0;
           this.pageSize = 25;
           this.pageLength = 0;
-          this.pageSizeOptions = [5, 25, 50];
+          this.pageSizeOptions = [25, 50, 100];
           this.spinnerMode = "indeterminate";
           this.spinnerValue = 0;
           this.clients = [];
@@ -6554,6 +6556,7 @@
             if (this.display) {
               this.clientsDataSource = new _angular_material_table__WEBPACK_IMPORTED_MODULE_3__["MatTableDataSource"](this.clients);
               this.clientsDataSource.sort = this.sort;
+              this.clientsDataSource.paginator = this.paginator;
             }
           } //////////////////////////////////////////////////////////////////////////////
           /////           TABLE
@@ -7219,7 +7222,7 @@
           this.pageIndex = 0;
           this.pageSize = 25;
           this.pageLength = 0;
-          this.pageSizeOptions = [5, 25, 50];
+          this.pageSizeOptions = [25, 50, 100];
           this.display = false;
           this.filter = "";
         } //////////////////////////////////////////////////////////////////////////////
@@ -7235,6 +7238,7 @@
             this._appsService.apps.subscribe(function (apps) {
               _this20.appsDataSource = new _angular_material_table__WEBPACK_IMPORTED_MODULE_2__["MatTableDataSource"](apps);
               _this20.appsDataSource.sort = _this20.sort;
+              _this20.appsDataSource.paginator = _this20.paginator;
             });
 
             this._appsService.display.subscribe(function (display) {

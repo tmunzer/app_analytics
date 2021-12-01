@@ -27,7 +27,7 @@ export class AppsComponent implements AfterViewInit {
   pageIndex: number = 0
   pageSize: number = 25
   pageLength: number = 0
-  pageSizeOptions: number[] = [5, 25, 50]
+  pageSizeOptions: number[] = [25, 50, 100]
 
   display: boolean = false;
 
@@ -46,6 +46,7 @@ export class AppsComponent implements AfterViewInit {
     this._appsService.apps.subscribe(apps => {
       this.appsDataSource = new MatTableDataSource(apps);
       this.appsDataSource.sort = this.sort;
+      this.appsDataSource.paginator = this.paginator;
     })
     this._appsService.display.subscribe(display => {
       this.display = display;

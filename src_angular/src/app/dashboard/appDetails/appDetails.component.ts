@@ -51,7 +51,7 @@ export class AppDetailsComponent implements OnInit {
   pageIndex: number = 0;
   pageSize: number = 25;
   pageLength: number = 0;
-  pageSizeOptions: number[] = [5, 25, 50];
+  pageSizeOptions: number[] = [25, 50, 100];
 
   wlans: WlanElement[] = [];
   clients: ClientElement[] = [];
@@ -126,6 +126,7 @@ export class AppDetailsComponent implements OnInit {
   displayTable(): void {
     this.dataSource = new MatTableDataSource<ClientElement>(this.clients);
     this.dataSource.sort = this.sort;
+    this.dataSource.paginator = this.paginator;
   }
 
   //////////////////////////////////////////////////////////////////////////////
