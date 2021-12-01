@@ -60,6 +60,7 @@ import { WarningDialog } from '@src/app/common/common-warning';
 import { OrgComponent } from '@src/app/org/org.component';
 import { BytesPipe } from '@src/app/common/pipe/bytes_pipe'
 import { WlanPipe } from '@src/app/common/pipe/wlan_pipe'
+import { MacPipe } from '@src/app/common/pipe/mac_pipe'
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { MatGoogleMapsAutocompleteModule } from '@angular-material-extensions/google-maps-autocomplete';
 import { AgmCoreModule } from '@agm/core';
@@ -69,7 +70,7 @@ import { AgmCoreModule } from '@agm/core';
     AppComponent,
     LoginComponent, TwoFactorDialog,
     DashboardComponent, ClientsComponent, AppsComponent, ClientDetailsComponent, AppDetailsComponent,
-    ErrorDialog, WarningDialog, BytesPipe, WlanPipe,
+    ErrorDialog, WarningDialog, BytesPipe, WlanPipe, MacPipe,
     OrgComponent,
     StartsWithPipe,
     MapToArrayPipe
