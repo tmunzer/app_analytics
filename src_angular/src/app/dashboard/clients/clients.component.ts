@@ -57,7 +57,6 @@ export class ClientsComponent implements AfterViewInit {
       this.displayTable();
     })
     this._clientsService.progress.subscribe(progress => {
-      console.log(progress)
       if (progress > 0) {
         this.spinnerMode = "determinate";
         this.spinnerValue = progress;

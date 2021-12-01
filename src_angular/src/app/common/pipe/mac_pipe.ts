@@ -4,12 +4,10 @@ import { Pipe, PipeTransform } from '@angular/core';
 
 export class MacPipe implements PipeTransform {
     transform(mac: string = "") {
-        var splitted = [];
-        var result = "";
+        var result = [];
         for (let i =0; i <=5; i++){
-            splitted.push(mac.substr(i*2, 2))
+            result.push(mac.substr(i*2, 2))
         }
-        console.log(splitted)
-        return splitted.join(":");
+        return result.join(":");
     }
 }

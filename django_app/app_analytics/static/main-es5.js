@@ -1300,15 +1300,12 @@
             var m = 0;
             var result = "";
 
-            if (size) {
-              while (size >= 1000) {
-                size = size / 1000;
-                m += 1;
-              }
-
-              result = size.toFixed(2) + " " + multiplicator[m];
+            while (size >= 1000) {
+              size = size / 1000;
+              m += 1;
             }
 
+            result = size.toFixed(2) + " " + multiplicator[m];
             return result;
           }
         }]);
@@ -5093,7 +5090,7 @@
 
           _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](1);
 
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("ngId", element_r22._id);
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("ngIf", element_r22);
         }
       }
 
@@ -5141,7 +5138,7 @@
 
           _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](1);
 
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("ngId", element_r25._id);
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("ngIf", element_r25);
         }
       }
 
@@ -5189,7 +5186,7 @@
 
           _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](1);
 
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("ngId", element_r28._id);
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("ngIf", element_r28);
         }
       }
 
@@ -5517,7 +5514,7 @@
         },
         decls: 92,
         vars: 37,
-        consts: [["fxLayout", "row", 2, "height", "100%", "width", "90em"], ["fxLayout", "column", 2, "width", "100%"], ["fxLayout", "row", "fxLayoutAlign", "space-between center"], ["fxLayout", "row", "fxLayoutAlign", "center center"], ["fxLayout", "column"], [2, "margin", "0 1em"], ["matInput", "", "placeholder", "Start date", 3, "ngxMatDatetimePicker", "min", "max", "formControl"], ["matSuffix", "", 3, "for"], ["color", "accent", "stepMinute", "10"], ["start_picker", ""], ["matInput", "", "placeholder", "End date", 3, "ngxMatDatetimePicker", "min", "max", "formControl"], ["end_picker", ""], ["mat-raised-button", "", "color", "accent", 3, "click"], ["fxLayout", "row", "fxLayoutAlign", "center flex-start", 2, "flex-grow", "1", "margin", "0 1em"], [1, "details"], ["fxLayout", "row"], [1, "info"], ["class", "loading", 4, "ngIf"], [1, "dashboard-content", "chart", 2, "height", "12em", "width", "100%", "position", "relative", "display", "block"], ["baseChart", "", "chartType", "line", 2, "height", "100%", 3, "datasets", "labels", "options", "legend"], [1, "table-parent-container", 2, "height", "calc(100vh - 650px)"], ["fxLayout", "row", "fxLayoutAlign", "space-between center\xA0"], ["appearance", "standard", 2, "width", "44%", "padding", "0 1.2em"], ["type", "text", "matInput", "", 3, "ngModel", "ngModelChange", "keyup"], ["matSuffix", "", "mat-icon-button", "", "aria-label", "Clear", "style", "margin: 0;", 3, "click", 4, "ngIf"], ["aria-label", "Select page", 3, "pageIndex", "pageSize", "pageSizeOptions"], ["paginator", ""], [1, "table-container"], ["mat-table", "", "matSort", "", 3, "dataSource", "matSortChange"], ["matColumnDef", "app"], ["mat-header-cell", "", "mat-sort-header", "", "mat-sort-header", "", "style", "width: 40%;", 4, "matHeaderCellDef"], ["mat-cell", "", 4, "matCellDef"], ["matColumnDef", "rx_bytes"], ["mat-header-cell", "", "mat-sort-header", "", "style", "width: 20%; text-align: center;", 4, "matHeaderCellDef"], ["matColumnDef", "tx_bytes"], ["matColumnDef", "total_bytes"], ["mat-header-row", "", 4, "matHeaderRowDef", "matHeaderRowDefSticky"], ["mat-row", "", 4, "matRowDef", "matRowDefColumns"], ["fxLayout", "row", "fxLayoutAlign", "end"], ["mat-raised-button", "", "color", "accent", 2, "margin", "0 1em", 3, "click"], [1, "loading"], ["diameter", "45"], ["matSuffix", "", "mat-icon-button", "", "aria-label", "Clear", 2, "margin", "0", 3, "click"], ["mat-header-cell", "", "mat-sort-header", "", "mat-sort-header", "", 2, "width", "40%"], ["mat-cell", ""], [2, "color", "#0095a3", 3, "routerLink", "click"], ["mat-header-cell", "", "mat-sort-header", "", 2, "width", "20%", "text-align", "center"], [4, "ngId"], ["mat-header-row", ""], ["mat-row", ""]],
+        consts: [["fxLayout", "row", 2, "height", "100%", "width", "90em"], ["fxLayout", "column", 2, "width", "100%"], ["fxLayout", "row", "fxLayoutAlign", "space-between center"], ["fxLayout", "row", "fxLayoutAlign", "center center"], ["fxLayout", "column"], [2, "margin", "0 1em"], ["matInput", "", "placeholder", "Start date", 3, "ngxMatDatetimePicker", "min", "max", "formControl"], ["matSuffix", "", 3, "for"], ["color", "accent", "stepMinute", "10"], ["start_picker", ""], ["matInput", "", "placeholder", "End date", 3, "ngxMatDatetimePicker", "min", "max", "formControl"], ["end_picker", ""], ["mat-raised-button", "", "color", "accent", 3, "click"], ["fxLayout", "row", "fxLayoutAlign", "center flex-start", 2, "flex-grow", "1", "margin", "0 1em"], [1, "details"], ["fxLayout", "row"], [1, "info"], ["class", "loading", 4, "ngIf"], [1, "dashboard-content", "chart", 2, "height", "12em", "width", "100%", "position", "relative", "display", "block"], ["baseChart", "", "chartType", "line", 2, "height", "100%", 3, "datasets", "labels", "options", "legend"], [1, "table-parent-container", 2, "height", "calc(100vh - 650px)"], ["fxLayout", "row", "fxLayoutAlign", "space-between center\xA0"], ["appearance", "standard", 2, "width", "44%", "padding", "0 1.2em"], ["type", "text", "matInput", "", 3, "ngModel", "ngModelChange", "keyup"], ["matSuffix", "", "mat-icon-button", "", "aria-label", "Clear", "style", "margin: 0;", 3, "click", 4, "ngIf"], ["aria-label", "Select page", 3, "pageIndex", "pageSize", "pageSizeOptions"], ["paginator", ""], [1, "table-container"], ["mat-table", "", "matSort", "", 3, "dataSource", "matSortChange"], ["matColumnDef", "app"], ["mat-header-cell", "", "mat-sort-header", "", "mat-sort-header", "", "style", "width: 40%;", 4, "matHeaderCellDef"], ["mat-cell", "", 4, "matCellDef"], ["matColumnDef", "rx_bytes"], ["mat-header-cell", "", "mat-sort-header", "", "style", "width: 20%; text-align: center;", 4, "matHeaderCellDef"], ["matColumnDef", "tx_bytes"], ["matColumnDef", "total_bytes"], ["mat-header-row", "", 4, "matHeaderRowDef", "matHeaderRowDefSticky"], ["mat-row", "", 4, "matRowDef", "matRowDefColumns"], ["fxLayout", "row", "fxLayoutAlign", "end"], ["mat-raised-button", "", "color", "accent", 2, "margin", "0 1em", 3, "click"], [1, "loading"], ["diameter", "45"], ["matSuffix", "", "mat-icon-button", "", "aria-label", "Clear", 2, "margin", "0", 3, "click"], ["mat-header-cell", "", "mat-sort-header", "", "mat-sort-header", "", 2, "width", "40%"], ["mat-cell", ""], [2, "color", "#0095a3", 3, "routerLink", "click"], ["mat-header-cell", "", "mat-sort-header", "", 2, "width", "20%", "text-align", "center"], [4, "ngIf"], ["mat-header-row", ""], ["mat-row", ""]],
         template: function ClientDetailsComponent_Template(rf, ctx) {
           if (rf & 1) {
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "div", 0);
@@ -6341,9 +6338,9 @@
         }
       }
 
-      function ClientsComponent_td_29_Template(rf, ctx) {
+      function ClientsComponent_td_29_div_1_Template(rf, ctx) {
         if (rf & 1) {
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "td", 31);
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "div");
 
           _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](1);
 
@@ -6353,11 +6350,29 @@
         }
 
         if (rf & 2) {
+          var element_r32 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵnextContext"]().$implicit;
+
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](1);
+
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtextInterpolate"](_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipeBind1"](2, 1, element_r32.rx_bytes));
+        }
+      }
+
+      function ClientsComponent_td_29_Template(rf, ctx) {
+        if (rf & 1) {
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "td", 31);
+
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](1, ClientsComponent_td_29_div_1_Template, 3, 3, "div", 38);
+
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
+        }
+
+        if (rf & 2) {
           var element_r32 = ctx.$implicit;
 
           _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](1);
 
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtextInterpolate1"](" ", _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipeBind1"](2, 1, element_r32.rx_bytes), " ");
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("ngIf", element_r32._id);
         }
       }
 
@@ -6385,9 +6400,9 @@
         }
       }
 
-      function ClientsComponent_td_32_Template(rf, ctx) {
+      function ClientsComponent_td_32_div_1_Template(rf, ctx) {
         if (rf & 1) {
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "td", 31);
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "div");
 
           _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](1);
 
@@ -6397,11 +6412,29 @@
         }
 
         if (rf & 2) {
-          var element_r33 = ctx.$implicit;
+          var element_r35 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵnextContext"]().$implicit;
 
           _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](1);
 
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtextInterpolate1"](" ", _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipeBind1"](2, 1, element_r33.tx_bytes), " ");
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtextInterpolate"](_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipeBind1"](2, 1, element_r35.tx_bytes));
+        }
+      }
+
+      function ClientsComponent_td_32_Template(rf, ctx) {
+        if (rf & 1) {
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "td", 31);
+
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](1, ClientsComponent_td_32_div_1_Template, 3, 3, "div", 38);
+
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
+        }
+
+        if (rf & 2) {
+          var element_r35 = ctx.$implicit;
+
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](1);
+
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("ngIf", element_r35._id);
         }
       }
 
@@ -6429,9 +6462,9 @@
         }
       }
 
-      function ClientsComponent_td_35_Template(rf, ctx) {
+      function ClientsComponent_td_35_div_1_Template(rf, ctx) {
         if (rf & 1) {
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "td", 31);
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "div");
 
           _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](1);
 
@@ -6441,11 +6474,29 @@
         }
 
         if (rf & 2) {
-          var element_r34 = ctx.$implicit;
+          var element_r38 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵnextContext"]().$implicit;
 
           _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](1);
 
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtextInterpolate1"](" ", _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipeBind1"](2, 1, element_r34.total_bytes), " ");
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtextInterpolate"](_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipeBind1"](2, 1, element_r38.total_bytes));
+        }
+      }
+
+      function ClientsComponent_td_35_Template(rf, ctx) {
+        if (rf & 1) {
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "td", 31);
+
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](1, ClientsComponent_td_35_div_1_Template, 3, 3, "div", 38);
+
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
+        }
+
+        if (rf & 2) {
+          var element_r38 = ctx.$implicit;
+
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](1);
+
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("ngIf", element_r38._id);
         }
       }
 
@@ -6471,23 +6522,23 @@
         }
 
         if (rf & 2) {
-          var element_r35 = ctx.$implicit;
+          var element_r41 = ctx.$implicit;
 
           _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](1);
 
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtextInterpolate1"](" ", _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipeBind2"](2, 1, element_r35.assoc_time * 1000, "short"), " ");
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtextInterpolate1"](" ", _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipeBind2"](2, 1, element_r41.assoc_time * 1000, "short"), " ");
         }
       }
 
       function ClientsComponent_tr_39_Template(rf, ctx) {
         if (rf & 1) {
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelement"](0, "tr", 38);
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelement"](0, "tr", 39);
         }
       }
 
       function ClientsComponent_tr_40_Template(rf, ctx) {
         if (rf & 1) {
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelement"](0, "tr", 39);
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelement"](0, "tr", 40);
         }
       }
 
@@ -6531,8 +6582,6 @@
             });
 
             this._clientsService.progress.subscribe(function (progress) {
-              console.log(progress);
-
               if (progress > 0) {
                 _this17.spinnerMode = "determinate";
                 _this17.spinnerValue = progress;
@@ -6660,7 +6709,7 @@
         },
         decls: 41,
         vars: 10,
-        consts: [[1, "table-parent-container"], ["fxLayout", "row", "fxLayoutAlign", "space-between center\xA0"], ["appearance", "standard", 2, "width", "44%", "padding", "0 1.2em"], ["type", "text", "matInput", "", 3, "ngModel", "ngModelChange", "keyup"], ["matSuffix", "", "mat-icon-button", "", "aria-label", "Clear", "style", "margin: 0;", 3, "click", 4, "ngIf"], ["aria-label", "Select page", 3, "pageIndex", "pageSize", "pageSizeOptions"], ["paginator", ""], ["class", "loading", 4, "ngIf"], [1, "table-container"], ["mat-table", "", "matSort", "", 3, "dataSource", "matSortChange"], ["matColumnDef", "ssid"], ["mat-header-cell", "", "mat-sort-header", "", "mat-sort-header", "", "style", "width: 10%;", 4, "matHeaderCellDef"], ["mat-cell", "", 4, "matCellDef"], ["matColumnDef", "mac"], ["matColumnDef", "hostname"], ["mat-header-cell", "", "mat-sort-header", "", "mat-sort-header", "", "style", "width: 15%;", 4, "matHeaderCellDef"], ["matColumnDef", "username"], ["mat-header-cell", "", "mat-sort-header", "", "style", "width: 15%;", 4, "matHeaderCellDef"], ["matColumnDef", "ip"], ["mat-header-cell", "", "mat-sort-header", "", "style", "width: 10%;", 4, "matHeaderCellDef"], ["matColumnDef", "rx_bytes"], ["mat-header-cell", "", "mat-sort-header", "", "style", "width: 10%; text-align: center;", 4, "matHeaderCellDef"], ["matColumnDef", "tx_bytes"], ["matColumnDef", "total_bytes"], ["matColumnDef", "assoc_time"], ["mat-header-row", "", 4, "matHeaderRowDef", "matHeaderRowDefSticky"], ["mat-row", "", 4, "matRowDef", "matRowDefColumns"], ["matSuffix", "", "mat-icon-button", "", "aria-label", "Clear", 2, "margin", "0", 3, "click"], [1, "loading"], ["diameter", "45", 3, "mode", "value"], ["mat-header-cell", "", "mat-sort-header", "", "mat-sort-header", "", 2, "width", "10%"], ["mat-cell", ""], [2, "color", "#0095a3", 3, "routerLink", "click"], ["mat-header-cell", "", "mat-sort-header", "", "mat-sort-header", "", 2, "width", "15%"], ["mat-header-cell", "", "mat-sort-header", "", 2, "width", "15%"], ["mat-header-cell", "", "mat-sort-header", "", 2, "width", "10%"], ["mat-header-cell", "", "mat-sort-header", "", 2, "width", "10%", "text-align", "center"], ["fxLayout", "column"], ["mat-header-row", ""], ["mat-row", ""]],
+        consts: [[1, "table-parent-container"], ["fxLayout", "row", "fxLayoutAlign", "space-between center\xA0"], ["appearance", "standard", 2, "width", "44%", "padding", "0 1.2em"], ["type", "text", "matInput", "", 3, "ngModel", "ngModelChange", "keyup"], ["matSuffix", "", "mat-icon-button", "", "aria-label", "Clear", "style", "margin: 0;", 3, "click", 4, "ngIf"], ["aria-label", "Select page", 3, "pageIndex", "pageSize", "pageSizeOptions"], ["paginator", ""], ["class", "loading", 4, "ngIf"], [1, "table-container"], ["mat-table", "", "matSort", "", 3, "dataSource", "matSortChange"], ["matColumnDef", "ssid"], ["mat-header-cell", "", "mat-sort-header", "", "mat-sort-header", "", "style", "width: 10%;", 4, "matHeaderCellDef"], ["mat-cell", "", 4, "matCellDef"], ["matColumnDef", "mac"], ["matColumnDef", "hostname"], ["mat-header-cell", "", "mat-sort-header", "", "mat-sort-header", "", "style", "width: 15%;", 4, "matHeaderCellDef"], ["matColumnDef", "username"], ["mat-header-cell", "", "mat-sort-header", "", "style", "width: 15%;", 4, "matHeaderCellDef"], ["matColumnDef", "ip"], ["mat-header-cell", "", "mat-sort-header", "", "style", "width: 10%;", 4, "matHeaderCellDef"], ["matColumnDef", "rx_bytes"], ["mat-header-cell", "", "mat-sort-header", "", "style", "width: 10%; text-align: center;", 4, "matHeaderCellDef"], ["matColumnDef", "tx_bytes"], ["matColumnDef", "total_bytes"], ["matColumnDef", "assoc_time"], ["mat-header-row", "", 4, "matHeaderRowDef", "matHeaderRowDefSticky"], ["mat-row", "", 4, "matRowDef", "matRowDefColumns"], ["matSuffix", "", "mat-icon-button", "", "aria-label", "Clear", 2, "margin", "0", 3, "click"], [1, "loading"], ["diameter", "45", 3, "mode", "value"], ["mat-header-cell", "", "mat-sort-header", "", "mat-sort-header", "", 2, "width", "10%"], ["mat-cell", ""], [2, "color", "#0095a3", 3, "routerLink", "click"], ["mat-header-cell", "", "mat-sort-header", "", "mat-sort-header", "", 2, "width", "15%"], ["mat-header-cell", "", "mat-sort-header", "", 2, "width", "15%"], ["mat-header-cell", "", "mat-sort-header", "", 2, "width", "10%"], ["mat-header-cell", "", "mat-sort-header", "", 2, "width", "10%", "text-align", "center"], ["fxLayout", "column"], [4, "ngIf"], ["mat-header-row", ""], ["mat-row", ""]],
         template: function ClientsComponent_Template(rf, ctx) {
           if (rf & 1) {
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "mat-card", 0);
@@ -6747,7 +6796,7 @@
 
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](28, ClientsComponent_th_28_Template, 6, 0, "th", 21);
 
-            _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](29, ClientsComponent_td_29_Template, 3, 3, "td", 12);
+            _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](29, ClientsComponent_td_29_Template, 2, 1, "td", 12);
 
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementContainerEnd"]();
 
@@ -6755,7 +6804,7 @@
 
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](31, ClientsComponent_th_31_Template, 6, 0, "th", 21);
 
-            _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](32, ClientsComponent_td_32_Template, 3, 3, "td", 12);
+            _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](32, ClientsComponent_td_32_Template, 2, 1, "td", 12);
 
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementContainerEnd"]();
 
@@ -6763,7 +6812,7 @@
 
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](34, ClientsComponent_th_34_Template, 6, 0, "th", 21);
 
-            _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](35, ClientsComponent_td_35_Template, 3, 3, "td", 12);
+            _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](35, ClientsComponent_td_35_Template, 2, 1, "td", 12);
 
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementContainerEnd"]();
 
@@ -7549,15 +7598,13 @@
           key: "transform",
           value: function transform() {
             var mac = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : "";
-            var splitted = [];
-            var result = "";
+            var result = [];
 
             for (var i = 0; i <= 5; i++) {
-              splitted.push(mac.substr(i * 2, 2));
+              result.push(mac.substr(i * 2, 2));
             }
 
-            console.log(splitted);
-            return splitted.join(":");
+            return result.join(":");
           }
         }]);
 

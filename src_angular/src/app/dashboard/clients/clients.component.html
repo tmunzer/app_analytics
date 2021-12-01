@@ -60,7 +60,9 @@
                         <div>since Assoc. Time</div>
                     </div>
                 </th>
-                <td mat-cell *matCellDef="let element"> {{element.rx_bytes | bytessize}} </td>
+                <td mat-cell *matCellDef="let element">
+                    <div *ngIf="element._id">{{element.rx_bytes | bytessize}}</div>
+                </td>
             </ng-container>
             <!-- TX BYTES Column -->
             <ng-container matColumnDef="tx_bytes">
@@ -70,7 +72,9 @@
                         <div>since Assoc. Time</div>
                     </div>
                 </th>
-                <td mat-cell *matCellDef="let element"> {{element.tx_bytes | bytessize}} </td>
+                <td mat-cell *matCellDef="let element">
+                    <div *ngIf="element._id">{{element.tx_bytes | bytessize}}</div>
+                </td>
             </ng-container>
             <!-- TOTAL BYTES Column -->
             <ng-container matColumnDef="total_bytes">
@@ -80,7 +84,9 @@
                         <div>since Assoc. Time</div>
                     </div>
                 </th>
-                <td mat-cell *matCellDef="let element"> {{element.total_bytes | bytessize}} </td>
+                <td mat-cell *matCellDef="let element">
+                    <div *ngIf="element._id">{{element.total_bytes | bytessize}}</div>
+                </td>
             </ng-container>
             <!-- ASSOC TIME Column -->
             <ng-container matColumnDef="assoc_time">
