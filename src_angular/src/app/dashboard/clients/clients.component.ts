@@ -22,13 +22,17 @@ import { AppDetailsComponent } from '../appDetails/appDetails.component';
 export class ClientsComponent implements AfterViewInit {
   /////////////////////////
   // table
-  displayedColumns: string[] = ['ssid', 'mac', 'hostname', 'username', 'ip', 'tx_bytes', 'rx_bytes','total_bytes', 'assoc_time'];
+  displayedColumns: string[] = ['ssid', 'mac', 'hostname', 'username', 'ip', 'tx_bytes', 'rx_bytes', 'total_bytes', 'assoc_time'];
   clientsDataSource: MatTableDataSource<ClientElement> = new MatTableDataSource();
   clientsDisplayed: ClientElement[] = [];
   pageIndex: number = 0;
   pageSize: number = 25;
   pageLength: number = 0;
   pageSizeOptions: number[] = [5, 25, 50];
+
+
+  spinnerMode: string = "indeterminate";
+  spinnerValue: number = 0;
 
 
   clients: ClientElement[] = [];
@@ -51,6 +55,15 @@ export class ClientsComponent implements AfterViewInit {
     this._clientsService.clients.subscribe(clients => {
       this.clients = clients;
       this.displayTable();
+    })
+    this._clientsService.progress.subscribe(progress => {
+      console.log(progress)
+      if (progress > 0) {
+        this.spinnerMode = "determinate";
+        this.spinnerValue = progress;
+      } else {
+        this.spinnerMode = "indeterminate";
+      }
     })
     this._clientsService.display.subscribe(display => {
       this.display = display;

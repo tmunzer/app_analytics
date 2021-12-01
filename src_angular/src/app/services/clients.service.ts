@@ -62,6 +62,13 @@ export class ClientsService {
   
   private displaySource = new BehaviorSubject(false);
   display = this.displaySource.asObservable();
+  
+  private progressSource = new BehaviorSubject(0);
+  progress = this.progressSource.asObservable();
+
+  private total: number = 0;
+  private limit: number = 0;
+  private page: number = 0;
 
   constructor() { }
 
@@ -71,5 +78,20 @@ export class ClientsService {
   displaySet(data: boolean){
     this.displaySource.next(data);
   }
-
+  progessReset(){
+    this.progressSource.next(-1);
+    this.page=0;
+  }
+  progressInc(){
+    this.page= this.page + 1;
+    var prog = parseInt(((100 * this.page * this.limit)/this.total).toFixed(0))
+    this.progressSource.next(prog)
+  }
+  progressInit(limit:number, total:number){
+    this.limit=limit;
+    this.total = total;
+    this.page=0;
+    this.progressInc();
+  }
+  
 }

@@ -134,7 +134,7 @@ export class DashboardComponent implements OnInit {
       this._router.navigate(["/select"]);
     } else {
       this.getSiteStats();
-      this.getSiteClients();
+      this.getCurrentSiteClients();
       this.getSiteWlans();
     }
   }
@@ -162,7 +162,7 @@ export class DashboardComponent implements OnInit {
 
   refresh(): void {
     this.getSiteStats();
-    this.getSiteClients();
+    this.getCurrentSiteClients();
   }
   //////////////////////////////////////////////////////////////////////////////
   /////           LOAD SITE STATS
@@ -239,24 +239,29 @@ export class DashboardComponent implements OnInit {
   //////////////////////////////////////////////////////////////////////////////
   /////           LOAD CLIENTS STATS
   //////////////////////////////////////////////////////////////////////////////
-
-  parseSiteClients(data): void {
-    var tmp: ClientElement[] = [];
-    this.clients = data["clients"]
+  findClient(mac: string): ClientElement {
+    var result = { mac: mac } as ClientElement;
     this.clients.forEach(client => {
-      if (client.mac) {
-        client.total_bytes = client.rx_bytes + client.tx_bytes
-        tmp.push(client)
-      } else {
-        console.log(client)
+      if (client.mac == mac) {
+        result = client;
       }
     })
-    this._clientsService.clientsSet(tmp)
-
+    return result;
+  }
+  parseSiteClients(data): void {
+    this.clients = [];
+    Array.from(data["clients"]).forEach(client => {
+      if (client["mac"]) {
+        client["total_bytes"] = client["rx_bytes"] + client["tx_bytes"]
+        this.clients.push(client as ClientElement)
+      }
+    })
+    this._clientsService.clientsSet(this.clients)
   }
 
-  getSiteClients() {
+  getCurrentSiteClients() {
     var body = null
+    this._clientsService.progessReset();
     body = { host: this.host, cookies: this.cookies, headers: this.headers, site_id: this.site_id, start: this.getStart(), end: this.getEnd() }
     if (body) {
       this.statsLoading = true;
@@ -266,6 +271,7 @@ export class DashboardComponent implements OnInit {
           this.parseSiteClients(data);
           this._clientsService.displaySet(true);
           this.statsLoading = false;
+          this.searchAllSiteClients();
         },
         error: error => {
           this.statsLoading = false;
@@ -275,6 +281,78 @@ export class DashboardComponent implements OnInit {
         }
       })
     }
+  }
+
+  parseSiteSearch(data): void {
+    Array.from(data["clients"]).forEach(client => {
+      if (client["mac"]) {
+        var new_client = this.findClient(client["mac"]);
+        new_client.mac = client["mac"]
+        new_client.ip = client["last_ip"];
+        new_client.username = client["last_username"];
+        new_client.hostname = client["last_hostname"];
+        new_client.ssid = client["last_ssid"];
+        new_client.wlan_id = client["last_wlan_id"];
+        new_client.model = client["last_model"];
+        new_client.os = client["last_device"];
+        new_client.manufacture = client["mfg"];
+        this.clients.push(new_client)
+      }
+    })
+    this._clientsService.clientsSet(this.clients)
+  }
+
+  searchAllSiteClients() {
+    var body = null
+    body = { host: this.host, cookies: this.cookies, headers: this.headers, site_id: this.site_id, start: this.getStart(), end: this.getEnd() }
+    if (body) {
+      this.statsLoading = true;
+      this._clientsService.displaySet(false);
+      this._http.post<any[]>('/api/clients/search/', body).subscribe({
+        next: data => {
+          this.parseSiteSearch(data);
+          if (data["next"]) {
+            this._clientsService.progressInit(data["limit"], data["total"])
+            this.sendNext(data["next"])
+          } else {
+            this._clientsService.displaySet(true);
+            this.statsLoading = false;
+          }
+        },
+        error: error => {
+          this.statsLoading = false;
+          var message: string = "There was an error... "
+          if ("error" in error) { message += error["error"]["message"] }
+          this.openError(message)
+        }
+      })
+    }
+  }
+
+  sendNext(next: string) {
+    var body = null
+    body = { host: this.host, cookies: this.cookies, headers: this.headers, next: next }
+    if (body) {
+      this._http.post<any[]>('/api/next/', body).subscribe({
+        next: data => {
+          this.parseSiteSearch(data);
+          if (data["next"]) {
+            this._clientsService.progressInc()
+            this.sendNext(data["next"])
+          } else {
+            this._clientsService.displaySet(true);
+            this.statsLoading = false;
+          }
+        },
+        error: error => {
+          this.statsLoading = false;
+          var message: string = "There was an error... "
+          if ("error" in error) { message += error["error"]["message"] }
+          this.openError(message)
+        }
+      })
+    }
+
   }
 
   getSiteWlans(): void {
