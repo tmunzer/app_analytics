@@ -10,7 +10,9 @@ import logging
 import os
 
 from .mist_lib.sites import Sites
+from .mist_lib.clients import Clients
 from .mist_lib.stats import SiteStats, AppStats, ClientStats
+from .mist_lib.common import Next
 
 try:
     from .config import google_api_key
@@ -69,6 +71,13 @@ def get_client_details(request):
         return JsonResponse(status=response["status"], data=response["data"])
     else:
         return Http404
+@csrf_exempt
+def search_clients(request):
+    if request.method == 'POST':
+        response = Clients().search_clients(request.body)
+        return JsonResponse(status=response["status"], data=response["data"])
+    else:
+        return Http404
 ##########
 # Sites
 
@@ -84,6 +93,16 @@ def get_sites(request):
 def get_site_wlans(request):
     if request.method == 'POST':
         response = Sites().get_site_wlans(request.body)
+        return JsonResponse(status=response["status"], data=response["data"])
+    else:
+        return Http404
+
+##########
+# NEXT
+@csrf_exempt
+def get_next(request):
+    if request.method == 'POST':
+        response = Next().get_next(request.body)
         return JsonResponse(status=response["status"], data=response["data"])
     else:
         return Http404
