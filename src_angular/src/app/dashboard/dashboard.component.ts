@@ -239,15 +239,6 @@ export class DashboardComponent implements OnInit {
   //////////////////////////////////////////////////////////////////////////////
   /////           LOAD CLIENTS STATS
   //////////////////////////////////////////////////////////////////////////////
-  findClient(mac: string): ClientElement {
-    var result = { mac: mac } as ClientElement;
-    this.clients.forEach(client => {
-      if (client.mac == mac) {
-        result = client;
-      }
-    })
-    return result;
-  }
   parseSiteClients(data): void {
     this.clients = [];
     Array.from(data["clients"]).forEach(client => {
@@ -283,20 +274,33 @@ export class DashboardComponent implements OnInit {
     }
   }
 
+  findClient(mac: string): ClientElement {
+    var result: ClientElement;
+    this.clients.forEach(client => {
+      if (client.mac == mac) {
+        result = client;
+      }
+    })
+    return result;
+  }
+
   parseSiteSearch(data): void {
     Array.from(data["clients"]).forEach(client => {
       if (client["mac"]) {
-        var new_client = this.findClient(client["mac"]);
-        new_client.mac = client["mac"]
-        new_client.ip = client["last_ip"];
-        new_client.username = client["last_username"];
-        new_client.hostname = client["last_hostname"];
-        new_client.ssid = client["last_ssid"];
-        new_client.wlan_id = client["last_wlan_id"];
-        new_client.model = client["last_model"];
-        new_client.os = client["last_device"];
-        new_client.manufacture = client["mfg"];
-        this.clients.push(new_client)
+        var tmp = this.findClient(client["mac"]);
+        if (!tmp) {
+          var new_client = {} as ClientElement;
+          new_client.mac = client["mac"];
+          new_client.ip = client["last_ip"];
+          new_client.username = client["last_username"];
+          new_client.hostname = client["last_hostname"];
+          new_client.ssid = client["last_ssid"];
+          new_client.wlan_id = client["last_wlan_id"];
+          new_client.model = client["last_model"];
+          new_client.os = client["last_device"];
+          new_client.manufacture = client["mfg"];
+          this.clients.push(new_client)
+        }
       }
     })
     this._clientsService.clientsSet(this.clients)

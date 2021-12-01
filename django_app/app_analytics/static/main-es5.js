@@ -2043,19 +2043,6 @@
           //////////////////////////////////////////////////////////////////////////////
 
         }, {
-          key: "findClient",
-          value: function findClient(mac) {
-            var result = {
-              mac: mac
-            };
-            this.clients.forEach(function (client) {
-              if (client.mac == mac) {
-                result = client;
-              }
-            });
-            return result;
-          }
-        }, {
           key: "parseSiteClients",
           value: function parseSiteClients(data) {
             var _this6 = this;
@@ -2118,25 +2105,39 @@
             }
           }
         }, {
+          key: "findClient",
+          value: function findClient(mac) {
+            var result;
+            this.clients.forEach(function (client) {
+              if (client.mac == mac) {
+                result = client;
+              }
+            });
+            return result;
+          }
+        }, {
           key: "parseSiteSearch",
           value: function parseSiteSearch(data) {
             var _this8 = this;
 
             Array.from(data["clients"]).forEach(function (client) {
               if (client["mac"]) {
-                var new_client = _this8.findClient(client["mac"]);
+                var tmp = _this8.findClient(client["mac"]);
 
-                new_client.mac = client["mac"];
-                new_client.ip = client["last_ip"];
-                new_client.username = client["last_username"];
-                new_client.hostname = client["last_hostname"];
-                new_client.ssid = client["last_ssid"];
-                new_client.wlan_id = client["last_wlan_id"];
-                new_client.model = client["last_model"];
-                new_client.os = client["last_device"];
-                new_client.manufacture = client["mfg"];
+                if (!tmp) {
+                  var new_client = {};
+                  new_client.mac = client["mac"];
+                  new_client.ip = client["last_ip"];
+                  new_client.username = client["last_username"];
+                  new_client.hostname = client["last_hostname"];
+                  new_client.ssid = client["last_ssid"];
+                  new_client.wlan_id = client["last_wlan_id"];
+                  new_client.model = client["last_model"];
+                  new_client.os = client["last_device"];
+                  new_client.manufacture = client["mfg"];
 
-                _this8.clients.push(new_client);
+                  _this8.clients.push(new_client);
+                }
               }
             });
 

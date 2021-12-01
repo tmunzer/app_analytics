@@ -1083,15 +1083,6 @@ class DashboardComponent {
     //////////////////////////////////////////////////////////////////////////////
     /////           LOAD CLIENTS STATS
     //////////////////////////////////////////////////////////////////////////////
-    findClient(mac) {
-        var result = { mac: mac };
-        this.clients.forEach(client => {
-            if (client.mac == mac) {
-                result = client;
-            }
-        });
-        return result;
-    }
     parseSiteClients(data) {
         this.clients = [];
         Array.from(data["clients"]).forEach(client => {
@@ -1127,20 +1118,32 @@ class DashboardComponent {
             });
         }
     }
+    findClient(mac) {
+        var result;
+        this.clients.forEach(client => {
+            if (client.mac == mac) {
+                result = client;
+            }
+        });
+        return result;
+    }
     parseSiteSearch(data) {
         Array.from(data["clients"]).forEach(client => {
             if (client["mac"]) {
-                var new_client = this.findClient(client["mac"]);
-                new_client.mac = client["mac"];
-                new_client.ip = client["last_ip"];
-                new_client.username = client["last_username"];
-                new_client.hostname = client["last_hostname"];
-                new_client.ssid = client["last_ssid"];
-                new_client.wlan_id = client["last_wlan_id"];
-                new_client.model = client["last_model"];
-                new_client.os = client["last_device"];
-                new_client.manufacture = client["mfg"];
-                this.clients.push(new_client);
+                var tmp = this.findClient(client["mac"]);
+                if (!tmp) {
+                    var new_client = {};
+                    new_client.mac = client["mac"];
+                    new_client.ip = client["last_ip"];
+                    new_client.username = client["last_username"];
+                    new_client.hostname = client["last_hostname"];
+                    new_client.ssid = client["last_ssid"];
+                    new_client.wlan_id = client["last_wlan_id"];
+                    new_client.model = client["last_model"];
+                    new_client.os = client["last_device"];
+                    new_client.manufacture = client["mfg"];
+                    this.clients.push(new_client);
+                }
             }
         });
         this._clientsService.clientsSet(this.clients);
