@@ -1,7 +1,7 @@
 # Mist App Analytics
 
 ## MIT LICENSE
- 
+
 Copyright (c) 2021 Thomas Munzer
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the  Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
@@ -19,12 +19,12 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 
 
 <div style="display:flex;flex-direction:row;justify-content: space-between;">
-<img src="https://github.com/tmunzer/app_analytics/raw/main/._readme/img/clients.png"  width="45%"  />
-<img src="https://github.com/tmunzer/app_analytics/raw/main/._readme/img/client_detail.png"  width="45%"  />
+<img src="https://github.com/tmunzer/app_analytics/raw/main/._readme/img/clients.jpg"  width="45%"  />
+<img src="https://github.com/tmunzer/app_analytics/raw/main/._readme/img/client_detail.jpg"  width="45%"  />
  </div>
 <div style="display:flex;flex-direction:row;justify-content: space-between;">
-<img src="https://github.com/tmunzer/app_analytics/raw/main/._readme/img/apps.png"  width="45%"  />
-<img src="https://github.com/tmunzer/app_analytics/raw/main/._readme/img/app_detail.png"  width="45%"  />
+<img src="https://github.com/tmunzer/app_analytics/raw/main/._readme/img/apps.jpg"  width="45%"  />
+<img src="https://github.com/tmunzer/app_analytics/raw/main/._readme/img/app_detail.jpg"  width="45%"  />
  </div>
 
 
@@ -66,5 +66,4 @@ A configuration example with explanation is avaiable in the `django/backend/conf
 DJANGO_DEBUG | Number | 0 | Whether or not Django starts in Debug Mode (0=Production, 1=Debug) |
 DJANGO_ALLOWED_HOSTS | String |  | FQDN on which Django is listening. Only used in Production Mode |
 GOOGLE_API_KEY | String | | Google API Key to use [Google Map Javascript API](https://developers.google.com/maps/gmp-get-started) |
-APP_DISLCAIMER | String | | Disclaimer to display on the login page | 
-
+APP_DISLCAIMER | String | | Disclaimer to display on the login page |
