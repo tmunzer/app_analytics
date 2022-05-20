@@ -1,4 +1,4 @@
-@import '~@angular/material/theming';
+@import '@angular/material/theming';
 @import './mist-theming.scss';
 @include mat-core();
 $mist-app-primary: mat-palette($mist-blue, 800, 200, 500);
