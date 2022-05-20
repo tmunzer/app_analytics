@@ -29,7 +29,7 @@
             <ng-container matColumnDef="mac">
                 <th mat-header-cell *matHeaderCellDef mat-sort-header mat-sort-header style="width: 10%;"> MAC </th>
                 <td mat-cell *matCellDef="let element">
-                    <a [routerLink]="" (click)="openClientDetails(element)" style="color: #0095a3;">
+                    <a [routerLink]="" (click)="openClientDetails(element)" style="color: #0095a3; cursor: pointer;">
                         {{element.mac | mac}}
                     </a>
                 </td>
