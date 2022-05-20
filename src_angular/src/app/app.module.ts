@@ -33,6 +33,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { Router } from '@angular/router';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { StartsWithPipe, MapToArrayPipe } from '@src/app/common/common-pipes';
 
@@ -61,9 +62,7 @@ import { OrgComponent } from '@src/app/org/org.component';
 import { BytesPipe } from '@src/app/common/pipe/bytes_pipe'
 import { WlanPipe } from '@src/app/common/pipe/wlan_pipe'
 import { MacPipe } from '@src/app/common/pipe/mac_pipe'
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { MatGoogleMapsAutocompleteModule } from '@angular-material-extensions/google-maps-autocomplete';
-import { AgmCoreModule } from '@agm/core';
+
 
 @NgModule({
   declarations: [
@@ -109,13 +108,11 @@ import { AgmCoreModule } from '@agm/core';
     FormsModule,
     MatIconModule,
     MatSnackBarModule,
-    NgbModule,
-    MatGoogleMapsAutocompleteModule,
     NgxMatDatetimePickerModule,
     NgxMatTimepickerModule,
     NgxMatNativeDateModule,
     NgxMatMomentModule,
-    AgmCoreModule.forRoot()
+    NgbModule
   ],
   providers: [{
     provide: MatRadioModule,
