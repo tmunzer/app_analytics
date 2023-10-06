@@ -26,6 +26,26 @@ mat-card {
     margin: 1em;
     border: 1px solid lightgray;
 }
+.top-mat-card {
+    height: 6em;
+    display: flex;
+    justify-content: space-around;
+    width: 17em;
+}
+.top-mat-card-title {
+    font-size: medium;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 1em;
+    display: flex !important;
+}
+.top-mat-card-content {
+    overflow-x: hidden;
+    margin: 0 0.2em 0 0;
+    text-overflow: ellipsis;
+    font-size: x-large;
+    text-align: right;
+}
 
 button {
     margin: 1em;
@@ -41,23 +61,18 @@ button {
     background-color: rgb(199 199 199 / 77%);
 }
 
-.info {
-    height: 4em;
-    width: 15em;
-}
-
-.info.clickable {
+.clickable {
     cursor: pointer;
     box-shadow: 0px 2px 1px -1px rgb(0 0 0 / 20%), 0px 1px 1px 0px rgb(0 0 0 / 14%), 0px 1px 3px 0px rgb(0 0 0 / 12%);
     transition: all 0.2s ease-in-out;
 }
 
-.info.clickable:hover {
+.clickable:hover {
     box-shadow: rgb(50 50 93 / 25%) 0px 2px 3px -2px inset, rgb(0 0 0 / 30%) 0px 1px 2px -1px inset;
     transition: all 0.2s ease-in-out;
 }
 
-.info.clickable.selected {
+.clickable.selected {
     color: #eee;
     background-color: #999;
     transition: all 0.2s ease-in-out;
@@ -70,7 +85,7 @@ button {
 .table-parent-container {
     display: flex;
     flex-direction: column;
-    height: calc(100vh - 410px);
+    height: calc(100vh - 445px);
     padding: 0;
 }
 

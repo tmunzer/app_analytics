@@ -1,12 +1,12 @@
 import { Component, ViewChild, OnInit, Inject } from '@angular/core';
-import { MatLegacyDialogRef as MatDialogRef, MAT_LEGACY_DIALOG_DATA as MAT_DIALOG_DATA } from '@angular/material/legacy-dialog';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { HttpClient } from '@angular/common/http';
 import { LiveAnnouncer } from '@angular/cdk/a11y';
 import { UntypedFormControl } from '@angular/forms';
 
-import { MatLegacyPaginator as MatPaginator } from '@angular/material/legacy-paginator';
+import { MatPaginator } from '@angular/material/paginator';
 import { MatSort, Sort } from '@angular/material/sort';
-import { MatLegacyTableDataSource as MatTableDataSource } from '@angular/material/legacy-table';
+import { MatTableDataSource } from '@angular/material/table';
 
 import { LoginService } from '../../services/login.service';
 import { WlanElement, WlansService } from '../../services/wlans.service';

@@ -1,10 +1,10 @@
 import { Component, ViewChild, AfterViewInit, Input } from '@angular/core';
-import { MatLegacyDialog as MatDialog } from '@angular/material/legacy-dialog';
+import { MatDialog } from '@angular/material/dialog';
 import { LiveAnnouncer } from '@angular/cdk/a11y';
 
-import { MatLegacyPaginator as MatPaginator } from '@angular/material/legacy-paginator';
+import { MatPaginator } from '@angular/material/paginator';
 import { MatSort, Sort } from '@angular/material/sort';
-import { MatLegacyTableDataSource as MatTableDataSource } from '@angular/material/legacy-table';
+import { MatTableDataSource } from '@angular/material/table';
 
 import { ClientsService, ClientElement } from '../../services/clients.service';
 import { WlansService, WlanElement } from '../../services/wlans.service';

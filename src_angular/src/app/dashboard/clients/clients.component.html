@@ -1,6 +1,6 @@
 <mat-card class="table-parent-container">
-    <div fxLayout="row" fxLayoutAlign="space-between center ">
-        <mat-form-field appearance="standard" style="width: 44%; padding: 0 1.2em;">
+    <div class="flex-row flex-center-spacebetween">
+        <mat-form-field appearance="standard" style="width: 44%; padding: 0 1.2em 0 0;">
             <mat-label>Filter</mat-label>
             <input type="text" matInput [(ngModel)]="filter" (keyup)="applyFilter($event)">
             <button *ngIf="filter" matSuffix mat-icon-button aria-label="Clear" (click)="filter=''" style="margin: 0;">
@@ -55,7 +55,7 @@
             <!-- RX BYTES Column -->
             <ng-container matColumnDef="rx_bytes">
                 <th mat-header-cell *matHeaderCellDef mat-sort-header style="width: 10%; text-align: center;">
-                    <div fxLayout="column">
+                    <div class="flex-column">
                         <div>RX BYTES</div>
                         <div>since Assoc. Time</div>
                     </div>
@@ -67,7 +67,7 @@
             <!-- TX BYTES Column -->
             <ng-container matColumnDef="tx_bytes">
                 <th mat-header-cell *matHeaderCellDef mat-sort-header style="width: 10%; text-align: center;">
-                    <div fxLayout="column">
+                    <div class="flex-column">
                         <div>TX BYTES</div>
                         <div>since Assoc. Time</div>
                     </div>
@@ -79,7 +79,7 @@
             <!-- TOTAL BYTES Column -->
             <ng-container matColumnDef="total_bytes">
                 <th mat-header-cell *matHeaderCellDef mat-sort-header style="width: 10%; text-align: center;">
-                    <div fxLayout="column">
+                    <div class="flex-column">
                         <div>TOTAL BYTES</div>
                         <div>since Assoc. Time</div>
                     </div>

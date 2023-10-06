@@ -1,22 +1,24 @@
 <mat-card class="info" style="position: absolute;top: 1em;left: 25em;height: 35px;margin: 0;display: flex;flex-direction: row;align-items: center;padding: 0 1em;background-color: rgb(236 236 236);">
-    <mat-card-title fxLayout="row" fxLayoutAlign="space-between center" style="flex-direction: row;box-sizing: border-box;display: flex;place-content: center space-between;align-items: center;margin: 0;font-size: initial;font-weight: 200;margin-right: 0.5em;">
+    <mat-card-title class="flex-row flex-spacebetween-center" style="flex-direction: row;box-sizing: border-box;display: flex;place-content: center space-between;align-items: center;margin: 0;font-size: initial;font-weight: 200;margin-right: 0.5em;">
         Site</mat-card-title>
-    <mat-card-content style="font-weight: 500;">{{site_name}} </mat-card-content>
+    <mat-card-content style="font-weight: 500; padding: 0;">{{site_name}} </mat-card-content>
 </mat-card>
 <button mat-raised-button color="primary" style="position: absolute;top: 1em;right: 1em;margin: 0;" (click)="back()">Back to Sites</button>
 
-<div fxLayout="row" style="height: 100%;">
-    <div fxLayout="column" style="width: 100%;">
-        <div fxLayout="row" fxLayoutAlign="space-between center">
-            <div fxLayout="row" fxLayoutAlign="center center">
-                <div fxLayout="column">
-                    <mat-form-field style="margin: 0 1em;">
+<div class="flex-row" style="height: calc(100vh - 64px);">
+    <div class="flex-column" style="width: 100%;">
+        <div class="flex-row flex-center-spacebetween">
+            <div class="flex-row flex-center-center">
+                <div class="flex-column">
+                    <mat-form-field style="margin: 0;">
+                        <mat-label>From</mat-label>
                         <input matInput [ngxMatDatetimePicker]="start_picker" [min]="min_start_date" [max]="max_start_date" placeholder="Start date" [formControl]="startDateControl">
                         <mat-datepicker-toggle matSuffix [for]="start_picker"></mat-datepicker-toggle>
                         <ngx-mat-datetime-picker #start_picker color="accent" stepMinute="10">
                         </ngx-mat-datetime-picker>
                     </mat-form-field>
-                    <mat-form-field style="margin: 0 1em;">
+                    <mat-form-field style="margin: 0;">
+                        <mat-label>To</mat-label>
                         <input matInput [ngxMatDatetimePicker]="end_picker" [min]="min_end_date" [max]="max_end_date" placeholder="End date" [formControl]="endDateControl">
                         <mat-datepicker-toggle matSuffix [for]="end_picker"></mat-datepicker-toggle>
                         <ngx-mat-datetime-picker #end_picker color="accent" stepMinute="10">
@@ -26,18 +28,18 @@
                 <button mat-raised-button color="accent" (click)="refresh()">Refresh</button>
             </div>
 
-            <div fxLayout="row">
-                <mat-card class="info" style="border-color: rgba(0,149,163,1);">
-                    <mat-card-title fxLayout="row" fxLayoutAlign="space-between center" style="color: rgba(0,149,163,1);">Total Rx</mat-card-title>
-                    <mat-card-content>{{total_rx | bytessize}}
+            <div class="flex-row">
+                <mat-card class="info" class="top-mat-card" style="border-color: rgba(0,149,163,1);">
+                    <mat-card-title class="flex-row top-mat-card-title" style="color: rgba(0,149,163,1);">Total Rx</mat-card-title>
+                    <mat-card-content class="top-mat-card-content">{{total_rx | bytessize}} 
                         <div class="loading" *ngIf="statsLoading">
                             <mat-spinner diameter=45></mat-spinner>
                         </div>
                     </mat-card-content>
                 </mat-card>
-                <mat-card class="info " style="border-color: rgba(132,176,53,1); ">
-                    <mat-card-title fxLayout="row " fxLayoutAlign="space-between center " style="color: rgba(132,176,53,1); ">Total Tx</mat-card-title>
-                    <mat-card-content>
+                <mat-card class="" class="top-mat-card" style="border-color: rgba(132,176,53,1); ">
+                    <mat-card-title class="flex-row flex-spacebetween-center top-mat-card-title" style="color: rgba(132,176,53,1); ">Total Tx</mat-card-title>
+                    <mat-card-content class="top-mat-card-content">
                         {{total_tx | bytessize}}
                         <div class="loading" *ngIf="statsLoading">
                             <mat-spinner diameter=45></mat-spinner>
@@ -46,13 +48,13 @@
 
                 </mat-card>
             </div>
-            <div fxLayout="row">
-                <mat-card class="info clickable" (click)="table_to_display='clients'" [ngClass]="{'selected': table_to_display=='clients'}">
-                    <mat-card-title fxLayout="row" fxLayoutAlign="space-between center">
+            <div class="flex-row">
+                <mat-card class="clickable top-mat-card" (click)="table_to_display='clients'" [ngClass]="{'selected': table_to_display=='clients'}">
+                    <mat-card-title class="flex-row flex-spacebetween-center top-mat-card-title">
                         <div># of Clients</div>
                         <mat-icon class="material-icons" style="font-size: 20px;">loupe</mat-icon>
                     </mat-card-title>
-                    <mat-card-content>
+                    <mat-card-content class="top-mat-card-content">
                         <span *ngIf="clients">{{clients.length}}</span>
                         <span *ngIf="!clients"></span>
                         <div class="loading" *ngIf="statsLoading">
@@ -60,12 +62,12 @@
                         </div>
                     </mat-card-content>
                 </mat-card>
-                <mat-card class="info clickable" (click)="table_to_display='apps'" [ngClass]="{'selected': table_to_display=='apps'}">
-                    <mat-card-title fxLayout="row" fxLayoutAlign="space-between center">
+                <mat-card class="clickable top-mat-card" (click)="table_to_display='apps'" [ngClass]="{'selected': table_to_display=='apps'}">
+                    <mat-card-title class="flex-row flex-spacebetween-center top-mat-card-title">
                         <div># of Apps</div>
                         <mat-icon class="material-icons" style="font-size: 20px;">loupe</mat-icon>
                     </mat-card-title>
-                    <mat-card-content>
+                    <mat-card-content class="top-mat-card-content">
                         <span *ngIf="apps">{{apps.length}}</span>
                         <span *ngIf="!apps"></span>
                         <div class="loading" *ngIf="appsLoading">
@@ -75,7 +77,7 @@
                 </mat-card>
             </div>
         </div>
-        <div fxLayout="row">
+        <div class="flex-row">
             <mat-card class="dashboard-content chart" style="height: 12em; width: 100%; position: relative; display: block;">
                 <canvas baseChart style="height: 100%;" [datasets]="lineChartData" [labels]="lineChartLabels" [options]="lineChartOptions" [legend]="lineChartLegend" chartType="line">
                 </canvas>

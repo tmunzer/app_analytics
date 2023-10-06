@@ -1,15 +1,17 @@
-<div fxLayout="row" style="height: 100%; width: 90em; ">
-    <div fxLayout="column" style="width: 100%;">
-        <div fxLayout="row" fxLayoutAlign="space-between center">
-            <div fxLayout="row" fxLayoutAlign="center center">
-                <div fxLayout="column">
-                    <mat-form-field style="margin: 0 1em;">
+<div class="flex-row" style="max-height: 90vh">
+    <div class="flex-column" style="width: 100%;">
+        <div style="display: flex;align-items: center;justify-content: space-between;">
+            <div class="flex-row flex-center-center">
+                <div class="flex-column">
+                    <mat-form-field style="margin: 0;">
+                        <mat-label>From</mat-label>
                         <input matInput [ngxMatDatetimePicker]="start_picker" [min]="min_start_date" [max]="max_start_date" placeholder="Start date" [formControl]="startDateControl">
                         <mat-datepicker-toggle matSuffix [for]="start_picker"></mat-datepicker-toggle>
                         <ngx-mat-datetime-picker #start_picker color="accent" stepMinute="10">
                         </ngx-mat-datetime-picker>
                     </mat-form-field>
-                    <mat-form-field style="margin: 0 1em;">
+                    <mat-form-field style="margin: 0;">
+                        <mat-label>To</mat-label>
                         <input matInput [ngxMatDatetimePicker]="end_picker" [min]="min_end_date" [max]="max_end_date" placeholder="End date" [formControl]="endDateControl">
                         <mat-datepicker-toggle matSuffix [for]="end_picker"></mat-datepicker-toggle>
                         <ngx-mat-datetime-picker #end_picker color="accent" stepMinute="10">
@@ -19,18 +21,18 @@
                 <button mat-raised-button color="accent" (click)="refresh()">Refresh</button>
             </div>
 
-            <div fxLayout="row">
-                <mat-card class="info">
-                    <mat-card-title fxLayout="row" fxLayoutAlign="space-between center">Application</mat-card-title>
-                    <mat-card-content>
+            <div class="flex-row">
+                <mat-card class="top-mat-card">
+                    <mat-card-title class="flex-row flex-spacebetween-center  top-mat-card-title">Application</mat-card-title>
+                    <mat-card-content class="top-mat-card-content">
                         {{data.app.app}}
                     </mat-card-content>
                 </mat-card>
             </div>
-            <div fxLayout="row">
-                <mat-card class="info">
-                    <mat-card-title fxLayout="row" fxLayoutAlign="space-between center">Total Bytes</mat-card-title>
-                    <mat-card-content>
+            <div class="flex-row">
+                <mat-card class="top-mat-card" top-mat-card>
+                    <mat-card-title class="flex-row flex-spacebetween-center  top-mat-card-title">Total Bytes</mat-card-title>
+                    <mat-card-content class="top-mat-card-content">
                         {{total_bytes | bytessize}}
                         <div class="loading" *ngIf="loading">
                             <mat-spinner diameter=45></mat-spinner>
@@ -38,12 +40,12 @@
                     </mat-card-content>
                 </mat-card>
             </div>
-            <div fxLayout="row">
-                <mat-card class="info">
-                    <mat-card-title fxLayout="row" fxLayoutAlign="space-between center">
+            <div class="flex-row">
+                <mat-card class="top-mat-card">
+                    <mat-card-title class="flex-row flex-spacebetween-center  top-mat-card-title">
                         <div># of Clients</div>
                     </mat-card-title>
-                    <mat-card-content>
+                    <mat-card-content class="top-mat-card-content">
                         {{clients.length}}
                         <div class="loading" *ngIf="loading">
                             <mat-spinner diameter=45></mat-spinner>
@@ -52,9 +54,9 @@
                 </mat-card>
             </div>
         </div>
-        <mat-card class="table-parent-container">
-            <div fxLayout="row" fxLayoutAlign="space-between center">
-                <mat-form-field appearance="standard" style="width: 44%; padding: 0 1.2em;">
+        <mat-card class="table-parent-container" style="height: calc(100vh - 650px); display: flex;justify-content: space-between; margin: 0">
+            <div class="flex-row flex-spacebetween-center">
+                <mat-form-field appearance="standard" style="width: 44%; padding: 0em;">
                     <mat-label>Filter</mat-label>
                     <input type="text" matInput [(ngModel)]="filter" (keyup)="applyFilter($event)">
                     <button *ngIf="filter" matSuffix mat-icon-button aria-label="Clear" (click)="filter=''" style="margin: 0;">
@@ -64,7 +66,7 @@
                 <mat-paginator #paginator [pageIndex]="pageIndex" [pageSize]="pageSize" [pageSizeOptions]="pageSizeOptions" aria-label="Select page">
                 </mat-paginator>
             </div>
-            <div class="table-container">
+            <div class="table-container" >
                 <div class="loading" *ngIf="loading">
                     <mat-spinner diameter=45></mat-spinner>
                 </div>
@@ -121,6 +123,6 @@
         </mat-card>
     </div>
 </div>
-<div fxLayout="row" fxLayoutAlign="end">
+<div class="flex-row" style="margin: 1em; align-items: center; justify-content: flex-end;">
     <button mat-raised-button color="accent" (click)="close()" style="margin: 0 1em;">Close</button>
 </div>

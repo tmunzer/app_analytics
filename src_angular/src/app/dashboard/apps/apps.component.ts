@@ -1,11 +1,11 @@
 import { AfterViewInit, Component, ViewChild, Input } from '@angular/core';
 import { LiveAnnouncer } from '@angular/cdk/a11y';
-import { MatLegacyPaginator as MatPaginator } from '@angular/material/legacy-paginator';
-import { MatLegacyTableDataSource as MatTableDataSource } from '@angular/material/legacy-table';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatTableDataSource } from '@angular/material/table';
 import { MatSort, Sort } from '@angular/material/sort';
 
 import { AppsService, AppElement } from '../../services/apps.service';
-import { MatLegacyDialog as MatDialog } from '@angular/material/legacy-dialog';
+import { MatDialog } from '@angular/material/dialog';
 import { AppDetailsComponent } from '../appDetails/appDetails.component';
 import { ClientElement } from '@src/app/services/clients.service';
 import { ClientDetailsComponent } from '../clientDetails/clientDetails.component';

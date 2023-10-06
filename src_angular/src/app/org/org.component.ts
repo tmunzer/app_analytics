@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 import { LoginService } from '../services/login.service';
-import { MatLegacyDialog as MatDialog } from '@angular/material/legacy-dialog';
+import { MatDialog } from '@angular/material/dialog';
 import { ErrorDialog } from './../common/common-error';
 import { Router } from '@angular/router';
 
@@ -68,7 +68,7 @@ export class OrgComponent implements OnInit {
     const allowed_roles = ["admin", "write", "read"]
     // parsing all the orgs/sites from the privileges
     // only orgs with admin/write/installer roles are used
-    if (this.self != {} && this.self["privileges"]) {
+    if (this.self.hasOwnProperty("privileges") && this.self["privileges"]) {
       this.self["privileges"].forEach(element => {
         if (allowed_roles.indexOf(element["role"]) > -1) {
           if (element["scope"] == "org") {

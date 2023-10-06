@@ -1,6 +1,6 @@
 <mat-card class="table-parent-container">
-    <div fxLayout="row" fxLayoutAlign="space-between center ">
-        <mat-form-field appearance="standard" style="width: 44%; padding: 0 1.2em;">
+    <div class="flex-row flex-center-spacebetween">
+        <mat-form-field appearance="standard" style="width: 44%; padding: 0 1.2em 0 0;">
             <mat-label>Filter</mat-label>
             <input type="text" matInput [(ngModel)]="filter" (keyup)="applyFilter($event)">
             <button *ngIf="filter" matSuffix mat-icon-button aria-label="Clear" (click)="filter=''" style="margin: 0;">
