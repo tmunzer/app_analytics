@@ -1,11 +1,11 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
+import { MatLegacyDialog as MatDialog } from '@angular/material/legacy-dialog';
 import { HttpClient } from '@angular/common/http';
 import { UntypedFormControl } from '@angular/forms';
 import { Router } from "@angular/router";
 
-import { MatSnackBar } from '@angular/material/snack-bar';
-import { MatPaginator } from '@angular/material/paginator';
+import { MatLegacySnackBar as MatSnackBar } from '@angular/material/legacy-snack-bar';
+import { MatLegacyPaginator as MatPaginator } from '@angular/material/legacy-paginator';
 
 import { LoginService } from '../services/login.service';
 import { ClientsService, ClientElement } from '../services/clients.service';
