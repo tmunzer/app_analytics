@@ -2,7 +2,7 @@ import { Component, ViewChild, OnInit, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { HttpClient } from '@angular/common/http';
 import { LiveAnnouncer } from '@angular/cdk/a11y';
-import { FormControl } from '@angular/forms';
+import { UntypedFormControl } from '@angular/forms';
 
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort, Sort } from '@angular/material/sort';
@@ -62,10 +62,10 @@ export class AppDetailsComponent implements OnInit {
   @ViewChild('picker') picker: any;
   public min_start_date: moment.Moment = moment().subtract(7, 'day');
   public max_start_date: moment.Moment;
-  startDateControl = new FormControl(moment().second(0).subtract(1, 'day'));
+  startDateControl = new UntypedFormControl(moment().second(0).subtract(1, 'day'));
   public min_end_date: moment.Moment;
   public max_end_date: moment.Moment = moment();
-  endDateControl = new FormControl(moment().second(0));
+  endDateControl = new UntypedFormControl(moment().second(0));
 
 
   display: boolean = false;

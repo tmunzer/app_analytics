@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { HttpClient } from '@angular/common/http';
-import { FormControl } from '@angular/forms';
+import { UntypedFormControl } from '@angular/forms';
 import { Router } from "@angular/router";
 
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -57,10 +57,10 @@ export class DashboardComponent implements OnInit {
   @ViewChild('picker') picker: any;
   public min_start_date: moment.Moment = moment().subtract(7, 'day');
   public max_start_date: moment.Moment;
-  startDateControl = new FormControl(moment().second(0).subtract(1, 'day'));
+  startDateControl = new UntypedFormControl(moment().second(0).subtract(1, 'day'));
   public min_end_date: moment.Moment;
   public max_end_date: moment.Moment = moment();
-  endDateControl = new FormControl(moment().second(0));
+  endDateControl = new UntypedFormControl(moment().second(0));
 
 
   // LOADINBG INDICATORS
